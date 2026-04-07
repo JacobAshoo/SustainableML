@@ -1,0 +1,875 @@
+repository,repo_url,file_path,line_number,code_snippet,explanation
+MatthewZou9419/GACNN,https://github.com/MatthewZou9419/GACNN,GA.py,58,"    56:                 model.add(Conv2D(120, (1, 1), activation='relu', use_bias=False))
+    57:                 model.add(AveragePooling2D((2, 2)))
+>>> 58:                 model.add(Flatten())
+    59:                 model.add(Dense(120, activation='relu', use_bias=False))
+    60:                 model.add(Dense(84, activation='relu', use_bias=False))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+MatthewZou9419/GACNN,https://github.com/MatthewZou9419/GACNN,GA.py,70,"    68:                 model.add(AveragePooling2D((2, 2)))
+    69:                 model.add(Conv2D(1, (1, 1), activation='relu', use_bias=False))
+>>> 70:                 model.add(Flatten())
+    71:                 model.add(Dense(40, activation='relu', use_bias=False))
+    72:                 model.add(Dense(10, activation='softmax', use_bias=False))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+hananabilabd/EMG-Computer-Vision-Classification-using-MYO-ArmBand-Camera-Raspberry-Pi,https://github.com/hananabilabd/EMG-Computer-Vision-Classification-using-MYO-ArmBand-Camera-Raspberry-Pi,CV.py,50,"    48:         x = MaxPooling2D( (2, 2), strides=(2, 2) )( x )
+    49:         x = Dropout( 0.2 )( x )
+>>> 50:         x = Flatten()( x )
+    51:         x = Dense( 4, activation='softmax', kernel_initializer=glorot_uniform( seed=0 ) )( x )
+    52:         model = Model( inputs=x_input, outputs=x )","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+yudasong/Reinforcement-Learning-Branch-and-Bound,https://github.com/yudasong/Reinforcement-Learning-Branch-and-Bound,othello/keras/OthelloNNet.py,25,"    23:         h_conv3 = Activation('relu')(BatchNormalization(axis=3)(Conv2D(args.num_channels, 3, padding='valid')(h_conv2)))        # batch_size  x (board_x-2) x (board_y-2) x num_channels
+    24:         h_conv4 = Activation('relu')(BatchNormalization(axis=3)(Conv2D(args.num_channels, 3, padding='valid')(h_conv3)))        # batch_size  x (board_x-4) x (board_y-4) x num_channels
+>>> 25:         h_conv4_flat = Flatten()(h_conv4)       
+    26:         s_fc1 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(1024)(h_conv4_flat))))  # batch_size x 1024
+    27:         s_fc2 = Dropout(args.dropout)(Activation('relu')(BatchNormalization(axis=1)(Dense(512)(s_fc1))))          # batch_size x 1024","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+bubbliiiing/classic-convolution-network,https://github.com/bubbliiiing/classic-convolution-network,resnet50.py,125,"    123: 
+    124:     # 1,1,2048 -> 2048 -> num_classes
+>>> 125:     x = Flatten()(x)
+    126:     x = Dense(classes, activation='softmax', name='fc1000')(x)
+    127: ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+cjy1992/interp-e2e-driving,https://github.com/cjy1992/interp-e2e-driving,interp_e2e_driving/networks/multi_inputs_critic_rnn_network.py,209,"    205: 
+    206:     has_time_dim = num_outer_dims == 2
+    207:     if not has_time_dim:
+    208:       # Add a time dimension to the inputs.
+>>> 209:       observation = tf.nest.map_structure(lambda t: tf.expand_dims(t, 1),
+    210:                                           observation)
+    211:       action = tf.nest.map_structure(lambda t: tf.expand_dims(t, 1), action)
+    212:       step_type = tf.nest.map_structure(lambda t: tf.expand_dims(t, 1),
+    213:                                         step_type)",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+davidruizhidalgo/unsupervisedRemoteSensing,https://github.com/davidruizhidalgo/unsupervisedRemoteSensing,3_Redes Semisupervisadas/BCAE_v1.py,125,"    123:     output = concatenate([branch_a, branch_b, branch_c, branch_d], axis=-1)
+    124:     # Se añade como capa final de salida un clasificador tipo Multinomial logistic regression
+>>> 125:     output = Flatten()(output)
+    126:     out    = Dense(groundTruth.max()+1, activation='softmax', kernel_regularizer=regularizers.l2(0.001))(output)
+    127:     # Se define el modelo total de la red ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+scalaboy/AutoDriveCar_RL_Agent,https://github.com/scalaboy/AutoDriveCar_RL_Agent,code/end2end/1.interp-e2e-driving-master/interp_e2e_driving/networks/multi_inputs_critic_rnn_network.py,209,"    205: 
+    206:     has_time_dim = num_outer_dims == 2
+    207:     if not has_time_dim:
+    208:       # Add a time dimension to the inputs.
+>>> 209:       observation = tf.nest.map_structure(lambda t: tf.expand_dims(t, 1),
+    210:                                           observation)
+    211:       action = tf.nest.map_structure(lambda t: tf.expand_dims(t, 1), action)
+    212:       step_type = tf.nest.map_structure(lambda t: tf.expand_dims(t, 1),
+    213:                                         step_type)",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+aldahdooh/detectors_review,https://github.com/aldahdooh/detectors_review,kd_bu/detect/util.py,144,"    142:             MaxPooling2D(pool_size=(2, 2)),
+    143:             Dropout(0.5),
+>>> 144:             Flatten(),
+    145:             Dense(128),
+    146:             Activation('relu'),","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+aldahdooh/detectors_review,https://github.com/aldahdooh/detectors_review,kd_bu/detect/util.py,189,"    187:             MaxPooling2D(pool_size=(2, 2)),
+    188:             Dropout(0.5),
+>>> 189:             Flatten(),
+    190:             Dense(512),
+    191:             Activation('relu'),","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+bashendixie/ml_toolset,https://github.com/bashendixie/ml_toolset,案例30 在animals和CIFAR-10上使用浅层网络/shallownet.py,23,"    21: 		model.add(Activation(""relu""))
+    22: 		# softmax classifier
+>>> 23: 		model.add(Flatten())
+    24: 		model.add(Dense(classes))
+    25: 		model.add(Activation(""softmax""))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+tatsy/keras-generative,https://github.com/tatsy/keras-generative,models/cvaegan.py,320,"    318:         x = BasicConvLayer(filters=512, strides=(2, 2))(x)
+    319: 
+>>> 320:         x = Flatten()(x)
+    321:         x = Dense(1024)(x)
+    322:         x = Activation('relu')(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+tatsy/keras-generative,https://github.com/tatsy/keras-generative,models/cvaegan.py,359,"    357:         x = BasicConvLayer(filters=512, strides=(2, 2))(x)
+    358: 
+>>> 359:         f = Flatten()(x)
+    360:         x = Dense(1024)(f)
+    361:         x = Activation('relu')(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+tatsy/keras-generative,https://github.com/tatsy/keras-generative,models/cvaegan.py,376,"    374:         x = BasicConvLayer(filters=512, strides=(2, 2))(x)
+    375: 
+>>> 376:         f = Flatten()(x)
+    377:         x = Dense(1024)(f)
+    378:         x = Activation('relu')(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+Derfei/Dependency-Aware-Computation-Offloading-for-Mobile-Edge-Computing-with-Edge-Cloud-Cooperation,https://github.com/Derfei/Dependency-Aware-Computation-Offloading-for-Mobile-Edge-Computing-with-Edge-Cloud-Cooperation,Edge01/Executer/excutefacenet_greedrtl1.py,448,"    446: 
+    447:         av_pool = AveragePooling2D(pool_size=(3, 3), strides=(1, 1))(inception_5b)
+>>> 448:         reshape_layer = Flatten()(av_pool)
+    449:         dense_layer = Dense(128, name='dense_layer')(reshape_layer)
+    450:         norm_layer = Lambda(lambda x: K.l2_normalize(x, axis=1), name='norm_layer')(dense_layer)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+srivastavask/cvlab-ai,https://github.com/srivastavask/cvlab-ai,lab2/B28_E22CSEU0813_SAMEERMISHRA/cv_lab5.py,95,"    93:         layers.MaxPooling2D((2, 2)),
+    94:         layers.Conv2D(128, (3, 3), activation='relu'),
+>>> 95:         layers.Flatten(),
+    96:         layers.Dense(128, activation='relu'),
+    97:         layers.Dense(num_classes, activation='softmax')","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+MarkMinerov/Artificial-Intelligence,https://github.com/MarkMinerov/Artificial-Intelligence,Convolutional Neural Network/categorical_food/main.py,36,"    34:     Conv2D(10, 3, activation=""relu""),
+    35:     MaxPool2D(),
+>>> 36:     Flatten(),
+    37:     Dense(10, activation=""softmax""),
+    38: ])","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+halalboro/fpga-accelerators,https://github.com/halalboro/fpga-accelerators,Vitis-AI/examples/vai_quantizer/tensorflow2x/candidate_layer_quantize.py,51,"    49:   x = tf.keras.layers.MaxPooling2D((2, 2), (2, 2))(x)
+    50: 
+>>> 51:   x = tf.keras.layers.Flatten()(x)
+    52:   x = tf.keras.layers.Dense(10, activation=""sigmoid"")(x)
+    53: ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+chengyi-wu/kaggle,https://github.com/chengyi-wu/kaggle,keras_utils/vgg16_avg.py,52,"    50:         
+    51:         if include_top:
+>>> 52:             x = Flatten()(x)
+    53:             x = Dense(4096, activation='relu', trainable=False)(x)
+    54:             x = Dense(4096, activation='relu', trainable=False)(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+sugiyama34/AIciaSolidProject,https://github.com/sugiyama34/AIciaSolidProject,055.DNN/002.cnn.py,56,"    54: z = Conv2D(64, 3, name='Conv_1')(z)  # 13x13x32 -> 11x11x64
+    55: z = MaxPooling2D((3, 3), strides=(2, 2), name='Pool_1')(z)  # 11x11x64 -> 5x5x64
+>>> 56: z = Flatten()(z)  # 5x5x64 -> 1600
+    57: z = Dense(units=128, activation='relu')(z)  # dense + ReLU
+    58: p = Dense(units=10, activation='softmax')(z)  # dense + softmax","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+sugiyama34/AIciaSolidProject,https://github.com/sugiyama34/AIciaSolidProject,055.DNN/002.cnn.py,100,"    98:         self.layers['conv_1'] = Conv2D(hid_dim_1, 3, name='Conv_1')  # 13x13xhid_dim_0 -> 11x11xhid_dim_1
+    99:         self.layers['pool_1'] = MaxPooling2D((3, 3), strides=(2, 2), name='Pool_1')  # 11x11xhid_dim_1 -> 5x5xhid_dim_1
+>>> 100:         self.layers['flatten'] = Flatten()
+    101:         self.layers['dense_0'] = Dense(units=128, activation='relu')  # dense + ReLU
+    102:         self.last = Dense(units=10, activation='softmax', name='last')","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+KKKc3231/ML-DL_IDS,https://github.com/KKKc3231/ML-DL_IDS,cnn/cnn_predict.py,41,"    39:     Convolution1D(64,128,padding='same',activation='relu'),
+    40:     MaxPooling1D(),
+>>> 41:     Flatten(),
+    42:     Dense(128,activation='relu'),
+    43:     Dropout(rate=0.5),","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+Abdulk084/CardioTox,https://github.com/Abdulk084/CardioTox,cardiotox/fv_model.py,64,"    62:         x = keras.layers.Conv1D(192, 5, activation='relu')(x)
+    63:         x = keras.layers.Conv1D(192, 3, activation='relu')(x)
+>>> 64:         x = Flatten()(x)
+    65:         x = Dense(100, kernel_regularizer=l2(0.01), bias_regularizer=l2(0.01), activation='relu')(x)
+    66:         x = Dropout(0.5)(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+tanmayb123/DeepSPADE,https://github.com/tanmayb123/DeepSPADE,trainensemble.py,44,"    42: 
+    43: layers2 = Conv1D(128, 4, padding='valid', activation='relu', strides=1)(layers1)
+>>> 44: layers2 = Flatten()(layers2)
+    45: layers2 = Dense(40)(layers2)
+    46: layers2 = Activation('sigmoid')(layers2)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+dgtlmoon/changedetection.io-ai,https://github.com/dgtlmoon/changedetection.io-ai,app/model.py,14,"    12:     model.add(ReLU())
+    13: 
+>>> 14:     model.add(Flatten())
+    15:     model.add(Dense(128, activation='relu'))
+    16:     model.add(Dense(64, activation='relu'))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+james77777778/keras-image-models,https://github.com/james77777778/keras-image-models,kimm/_src/models/hgnet.py,519,"    517:             x = LearnableAffine(name=""head_last_conv_2"")(x)
+    518:         x = layers.Dropout(rate=dropout_rate, name=""head_dropout"")(x)
+>>> 519:         x = layers.Flatten()(x)
+    520:         x = layers.Dense(
+    521:             classes, activation=classifier_activation, name=""classifier""","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+catchy666/Coursera-Deep-Learning-Andrew-Ng,https://github.com/catchy666/Coursera-Deep-Learning-Andrew-Ng,assignments/c4-w4/01-face-recognition/inception_blocks_v2.py,277,"    275:     # Top layer
+    276:     X = AveragePooling2D(pool_size=(3, 3), strides=(1, 1), data_format='channels_first')(X)
+>>> 277:     X = Flatten()(X)
+    278:     X = Dense(128, name='dense_layer')(X)
+    279: ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+hwk0702/keras2torch,https://github.com/hwk0702/keras2torch,Natural_Language_Processing/Keras_Version/text_extraction_with_bert.py,234,"    232: 
+    233:     start_logits = layers.Dense(1, name=""start_logit"", use_bias=False)(embedding)
+>>> 234:     start_logits = layers.Flatten()(start_logits)
+    235: 
+    236:     end_logits = layers.Dense(1, name=""end_logit"", use_bias=False)(embedding)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+jinzishuai/learn2deeplearn,https://github.com/jinzishuai/learn2deeplearn,deeplearning.ai/C4.CNN/week2_DeepModelCaseStudy/hw/ResNets/Performance.py,252,"    250: 
+    251:     # output layer
+>>> 252:     X = Flatten()(X)
+    253:     X = Dense(classes, activation='softmax', name='fc' + str(classes), kernel_initializer = glorot_uniform(seed=0))(X)
+    254:     ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+xingjian-f/DeepLearning-OCR,https://github.com/xingjian-f/DeepLearning-OCR,architecture/shallow_weight.py,42,"    40: 	drop4 = SpatialDropout2D(0.5)(gn4)
+    41: 	# flaten
+>>> 42: 	flat = Flatten()(gn4)
+    43: 	# 1 dense
+    44: 	dense1 = Dense(8, activation='relu', W_regularizer=l2(0.1))(flat)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+thedatumorg/TSB-UAD,https://github.com/thedatumorg/TSB-UAD,TSB_UAD/models/cnn.py,87,"    85:                          activation='relu'))
+    86:         model.add(MaxPooling1D(pool_size=2))
+>>> 87:         model.add(Flatten())
+    88:         model.add(Dense(units=64, activation='relu'))  
+    89:         model.add(Dropout(rate=0.2))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+GINK03/keras-resnet-food-reverse-engineering,https://github.com/GINK03/keras-resnet-food-reverse-engineering,deep_food.py,69,"    67:   resnet_model = ResNet50(include_top=False, weights='imagenet', input_tensor=input_tensor)
+    68: 
+>>> 69:   dense  = Flatten()( \
+    70:              Dense(2048, activation='relu')( \
+    71:                BN()( \","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+homxxx/MicroExpressionRecognition,https://github.com/homxxx/MicroExpressionRecognition,nets/resnet50.py,106,"    104:     # 进行预测
+    105:     # 2048
+>>> 106:     x = Flatten()(x)
+    107: 
+    108:     # num_classes","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+langlrsw/AAL-unbiased-authentication,https://github.com/langlrsw/AAL-unbiased-authentication,nets/resnet2.py,232,"    230:         pool2 = AveragePooling2D(pool_size=(block_shape[ROW_AXIS], block_shape[COL_AXIS]),
+    231:                                  strides=(1, 1))(block)
+>>> 232:         flatten1 = Flatten()(pool2)
+    233:         dense = Dense(units=num_outputs, kernel_initializer=""he_normal"",
+    234:                       activation=""softmax"")(flatten1)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+mdai/kaggle-lung-cancer,https://github.com/mdai/kaggle-lung-cancer,train/cancer_pred_anno/resnet2d09e.py,83,"    81: 
+    82:     x = AveragePooling2D(pool_size=(8, 8))(x)
+>>> 83:     x = Flatten()(x)
+    84:     x = Dense(1, activation='sigmoid', name='predictions')(x)
+    85: ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+monkeyDemon/TianChi_JinNan2,https://github.com/monkeyDemon/TianChi_JinNan2,code/classify_keras/src/resNet50.py,143,"    141:     x = Conv_Block(x, nb_filter=[512,512,2048], kernel_size=(3,3))
+    142:     x = AveragePooling2D(pool_size=(7,7))(x)
+>>> 143:     x = Flatten()(x)
+    144:     x = Dense(category_num, activation='softmax',
+    145:             kernel_initializer=initializers.RandomNormal(mean=0.0, stddev=0.05, seed=None),","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+eric-moreno/Anomaly-Detection-Autoencoder,https://github.com/eric-moreno/Anomaly-Detection-Autoencoder,oneAPI/model_supervised.py,19,"    17:     L7 = Conv1D(128, 8, activation=""relu"", dilation_rate=2)(L6)
+    18:     L8 = MaxPooling1D(4, strides=4)(L7)
+>>> 19:     x = Flatten()(L8)
+    20:     x = Dense(128, activation='relu')(x)
+    21:     x = Dense(64, activation='relu')(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+eric-moreno/Anomaly-Detection-Autoencoder,https://github.com/eric-moreno/Anomaly-Detection-Autoencoder,oneAPI/model_supervised.py,48,"    46:     L4 = L4_layer(L3)
+    47: 
+>>> 48:     x = Flatten()(L4)
+    49: 
+    50:     L5_layer = Dense(128, activation=tf.nn.relu, use_bias=False)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+abhay6694/Face-Similarity,https://github.com/abhay6694/Face-Similarity,models.py,260,"    258: 
+    259:     if include_top:
+>>> 260:         x = Flatten()(x)
+    261:         x = Dense(classes, activation='softmax', name='classifier')(x)
+    262:     else:","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+abhay6694/Face-Similarity,https://github.com/abhay6694/Face-Similarity,models.py,467,"    465: 
+    466:     if include_top:
+>>> 467:         x = Flatten()(x)
+    468:         x = Dense(classes, activation='softmax', name='classifier')(x)
+    469:     else:","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+wzy6642/Deep_Learning_Keras,https://github.com/wzy6642/Deep_Learning_Keras,CNN_mnist/code/mnist_classifier_CNN.py,44,"    42:     model.add(Dropout(0.2))
+    43:     # 将(n,c,h,w)的特征图转化为(n,c*h*w)(必要操作)---->25
+>>> 44:     model.add(Flatten())
+    45:     model.add(Dense(units=128, activation='relu'))
+    46:     model.add(Dense(units=10, activation='softmax'))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+SeuTao/kaggle-competition-solutions,https://github.com/SeuTao/kaggle-competition-solutions,DCASE19_Freesound_Audio_Tagging2019_1st_solution/code/models.py,327,"    325:     # x = Lambda(lambda x: 1.5*x)(x)
+    326:     x = LocallyConnected1D(1,1,kernel_initializer=kinit,kernel_constraint=normNorm(1),use_bias=False)(x)
+>>> 327:     x = Flatten()(x)
+    328:     x = Dense(80, use_bias=False, kernel_initializer=Identity(1))(x)
+    329:     x = Lambda(lambda x: (x - 1.6))(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+shahnitav/Real-Time-Emotion-Recognition-Based-Music-Player,https://github.com/shahnitav/Real-Time-Emotion-Recognition-Based-Music-Player,Tensorflow/emotions.py,39,"    37: model.add(Dropout(0.25))
+    38: 
+>>> 39: model.add(Flatten())
+    40: model.add(Dense(1024, activation='relu'))
+    41: model.add(Dropout(0.5))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+kshitizrimal/Cash-Recog-Project,https://github.com/kshitizrimal/Cash-Recog-Project,v1.py,92,"    90: model_fine.add(pre_model)
+    91: 
+>>> 92: model_fine.add(tf.keras.layers.Flatten())
+    93: 
+    94: model_fine.add(tf.keras.layers.Dense(64, activation='relu'))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+liyang619/COLE-Platform,https://github.com/liyang619/COLE-Platform,overcookedgym/human_aware_rl/stable-baselines/stable_baselines/ddpg/policies.py,164,"    162:                 qf_h = self.activ(qf_h)
+    163:                 if i == 0:
+>>> 164:                     qf_h = tf.concat([qf_h, action], axis=-1)
+    165: 
+    166:             # the name attribute is used in pop-art normalization",tf.concat() accumulates into 'qf_h' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+vijayg15/Keras-MultiClass-Image-Classification,https://github.com/vijayg15/Keras-MultiClass-Image-Classification,scripts/wp_training_resnet101.py,74,"    72: print('Adding new layers...')
+    73: output = resnet101_base.get_layer(index = -1).output  
+>>> 74: output = Flatten()(output)
+    75: # let's add a fully-connected layer
+    76: output = Dense(512,activation = ""relu"")(output)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+Ascend/ModelZoo-TensorFlow,https://github.com/Ascend/ModelZoo-TensorFlow,TensorFlow/built-in/reinforcement_learning/PPO_for_TensorFlow/rl/xt/model/dqn/dqn_cnn.py,48,"    46:         convlayer = Conv2D(64, (4, 4), strides=(2, 2), activation='relu', padding='valid')(convlayer)
+    47:         convlayer = Conv2D(64, (3, 3), strides=(1, 1), activation='relu', padding='valid')(convlayer)
+>>> 48:         flattenlayer = Flatten()(convlayer)
+    49:         denselayer = Dense(256, activation='relu')(flattenlayer)
+    50:         value = Dense(self.action_dim, activation='linear')(denselayer)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+statmlben/dnn-inference,https://github.com/statmlben/dnn-inference,code-in-paper/app1/TS_app.py,53,"    51: 	model.add(MaxPooling2D(pool_size=(2, 2)))
+    52: 	model.add(Dropout(0.25))
+>>> 53: 	model.add(Flatten())
+    54: 	model.add(Dense(128, activation='relu'))
+    55: 	model.add(Dropout(0.5))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+sdg002/MNISTpng,https://github.com/sdg002/MNISTpng,PythonTrainer/TrainMnistFromFolder.py,84,"    82:     strides = (2, 2)))
+    83: # Flatten the network
+>>> 84: model.add(Flatten())
+    85: # Add a fully-connected hidden layer
+    86: model.add(Dense(500))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+Denbergvanthijs/imbDRL,https://github.com/Denbergvanthijs/imbDRL,imbDRL/examples/ddqn/train_mnist.py,21,"    19:           Conv2D(32, (5, 5), padding=""Same"", activation=""relu""),
+    20:           MaxPooling2D(pool_size=(2, 2)),
+>>> 21:           Flatten(),
+    22:           Dense(256, activation=""relu""),
+    23:           Dense(2, activation=None)]","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+xAlpharax/NeuralODE-Notes-Projects,https://github.com/xAlpharax/NeuralODE-Notes-Projects,train-res/train-res-celeb.py,47,"    45:   y = Dropout(0.2)(y)
+    46:   
+>>> 47:   y = Flatten()(y)
+    48:   y = Dense(512, activation='relu')(y)
+    49:   y = Dense(256, activation='sigmoid')(y)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+hfawaz/ijcnn19attacks,https://github.com/hfawaz/ijcnn19attacks,src/cleverhans_tutorials/tutorial_models_tfe.py,47,"    45:                                              padding='valid',
+    46:                                              activation=tf.nn.relu)
+>>> 47:     self.layers['flatten'] = tf.layers.Flatten()
+    48:     self.layers['logits'] = tf.layers.Dense(self.nb_classes,
+    49:                                             activation=None)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+gudbrandtandberg/ChessVision,https://github.com/gudbrandtandberg/ChessVision,chessvision/model/u_net.py,204,"    202:     center = Activation('relu')(center)
+    203: 
+>>> 204:     classify = Flatten()(center)
+    205:     #classify = Dense(32)(center)
+    206:     classify = Dense(8, activation=""sigmoid"", use_bias=False)(classify)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+evandiewald/LongHive,https://github.com/evandiewald/LongHive,train_spectral_cnn.py,68,"    66: 
+    67: 
+>>> 68: model.add(layers.Flatten())
+    69: # model.add(layers.Dense(128))
+    70: # model.add(layers.LeakyReLU())","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+JdeRobot/DeepLearningStudio,https://github.com/JdeRobot/DeepLearningStudio,Formula1-FollowLine/tensorflow/PilotNet/utils/pilotnet.py,17,"    15:     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation=""relu"",padding='same'))
+    16:     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation=""relu"",padding='same'))
+>>> 17:     model.add(Flatten())
+    18:     model.add(Dense(1164, activation=""relu""))
+    19:     model.add(Dense(100, activation=""relu""))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+Flowingsun007/DeepLearningTutorial,https://github.com/Flowingsun007/DeepLearningTutorial,ImageClassification/network/VGG.py,17,"    15:     for (num_convs, num_channels) in conv_arch:
+    16:         net.add(vgg_block(num_convs,num_channels))
+>>> 17:     net.add(tf.keras.models.Sequential([tf.keras.layers.Flatten(),
+    18:              tf.keras.layers.Dense(4096,activation='relu'),
+    19:              tf.keras.layers.Dropout(0.5),","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+jlff/tf2_notes,https://github.com/jlff/tf2_notes,class4/MNIST_FC/p19_mnist_train_ex4.py,9,"    7: x_train, x_test = x_train / 255.0, x_test / 255.0
+    8: model = tf.keras.models.Sequential([
+>>> 9:     tf.keras.layers.Flatten(),
+    10:     tf.keras.layers.Dense(128, activation='relu'),
+    11:     tf.keras.layers.Dense(10, activation='softmax')","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+fenago/deep-learning-time-series-forecasting,https://github.com/fenago/deep-learning-time-series-forecasting,chapter_24/04_cnn_tune_filter_maps.py,75,"    73: 	model.add(Dropout(0.5))
+    74: 	model.add(MaxPooling1D(pool_size=2))
+>>> 75: 	model.add(Flatten())
+    76: 	model.add(Dense(100, activation='relu'))
+    77: 	model.add(Dense(n_outputs, activation='softmax'))","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+Danil-Kutnyy/Neuroevolution,https://github.com/Danil-Kutnyy/Neuroevolution,model_examples/model_tmp_19py.py,10630,"    10628: 
+    10629: 
+>>> 10630: layer_0_out = tf.keras.layers.Flatten()(layer_0_out)
+    10631: layer_0_out = tf.keras.layers.Dense(10, activation='sigmoid')(layer_0_out)
+    10632: model = tf.keras.Model(","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+AaronJing/ApproxTrain,https://github.com/AaronJing/ApproxTrain,profile/resnet50_lut.py,420,"    418:     if include_top:
+    419:         x = layers.AveragePooling2D((7, 7), name='avg_pool')(x)
+>>> 420:         x = layers.Flatten()(x)
+    421:         x = layers.Dense(classes, activation='softmax', name='fc1000')(x)
+    422:     else:","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+AaronJing/ApproxTrain,https://github.com/AaronJing/ApproxTrain,profile/resnet50_lut.py,530,"    528:     if include_top:
+    529:         x = layers.AveragePooling2D((7, 7), name='avg_pool')(x)
+>>> 530:         x = layers.Flatten()(x)
+    531:         x = layers.Dense(classes, activation='softmax', name='fc1000')(x)
+    532:     else:","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+AaronJing/ApproxTrain,https://github.com/AaronJing/ApproxTrain,profile/resnet50_lut.py,681,"    679:     if include_top:
+    680:         x = layers.AveragePooling2D((7, 7), name='avg_pool')(x)
+>>> 681:         x = layers.Flatten()(x)
+    682:         x = layers.Dense(classes, activation='softmax', name='fc1000')(x)
+    683:     else:","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+shaohua0116/Multiview2Novelview,https://github.com/shaohua0116/Multiview2Novelview,ops.py,292,"    287:     wb = (x1-x) * (y-y0)
+    288:     wc = (x-x0) * (y1-y)
+    289:     wd = (x-x0) * (y-y0)
+    290: 
+    291:     # add dimension for addition
+>>> 292:     wa = tf.expand_dims(wa, axis=3)
+    293:     wb = tf.expand_dims(wb, axis=3)
+    294:     wc = tf.expand_dims(wc, axis=3)
+    295:     wd = tf.expand_dims(wd, axis=3)
+    296: 
+    297:     # compute output",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+CompVis/unsupervised-disentangling,https://github.com/CompVis/unsupervised-disentangling,ops.py,169,"    165:     tf.summary.scalar(name=""L_0_0"", tensor=a[0, 0])
+    166:     tf.summary.scalar(name=""L_1_0"", tensor=b[0, 0])
+    167:     tf.summary.scalar(name=""L_1_1"", tensor=c[0, 0])
+    168: 
+>>> 169:     det = tf.expand_dims(tf.expand_dims(a * c, axis=-1), axis=-1)
+    170:     row_1 = tf.expand_dims(tf.concat([tf.expand_dims(c, axis=-1), tf.expand_dims(z, axis=-1)], axis=-1), axis=-2)
+    171:     row_2 = tf.expand_dims(tf.concat([tf.expand_dims(-b, axis=-1), tf.expand_dims(a, axis=-1)], axis=-1), axis=-2)
+    172: 
+    173:     L_inv = scal / (det + eps) * tf.concat([row_1, row_2], axis=-2)  # L^⁻1 = 1/(ac)* [[c, 0], [-b, a]",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+CompVis/unsupervised-disentangling,https://github.com/CompVis/unsupervised-disentangling,ops.py,198,"    193:     return features
+    194: 
+    195: 
+    196: @wrappy
+    197: def augm_mu(image_in, image_rec, mu, features, batch_size, n_part, move_list):
+>>> 198:     image_in = tf.tile(tf.expand_dims(image_in[0], axis=0),  [batch_size, 1, 1, 1])
+    199:     image_rec = tf.tile(tf.expand_dims(image_rec[0], axis=0),  [batch_size, 1, 1, 1])
+    200:     mu = tf.tile(tf.expand_dims(mu[0], axis=0), [batch_size, 1, 1])
+    201:     features = tf.tile(tf.expand_dims(features[0], axis=0), [batch_size, 1, 1])
+    202:     batch_size = batch_size // 2
+    203:     ran = (tf.reshape(tf.range(batch_size), [batch_size, 1]))/batch_size - 0.5",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+vanderschaarlab/mlforhealthlabpub,https://github.com/vanderschaarlab/mlforhealthlabpub,alg/deephit/utils_network.py,59,"    57:             rnn_state_out = tmp
+    58:         else:
+>>> 59:             rnn_state_out = tf.concat([rnn_state_out, tmp], axis = 1)
+    60:     
+    61:     return rnn_state_out",tf.concat() accumulates into 'rnn_state_out' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+chl8856/DeepHit,https://github.com/chl8856/DeepHit,utils_network.py,59,"    57:             rnn_state_out = tmp
+    58:         else:
+>>> 59:             rnn_state_out = tf.concat([rnn_state_out, tmp], axis = 1)
+    60:     
+    61:     return rnn_state_out",tf.concat() accumulates into 'rnn_state_out' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+firmai/tsgan,https://github.com/firmai/tsgan,alg/deephit/utils_network.py,59,"    57:             rnn_state_out = tmp
+    58:         else:
+>>> 59:             rnn_state_out = tf.concat([rnn_state_out, tmp], axis = 1)
+    60:     
+    61:     return rnn_state_out",tf.concat() accumulates into 'rnn_state_out' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+ago109/predictive-forward-forward,https://github.com/ago109/predictive-forward-forward,src/sim_train.py,159,"    157: 
+    158:         if i > 0:
+>>> 159:             Ey = tf.concat([Ey,gi],axis=1)
+    160:         else:
+    161:             Ey = gi",tf.concat() accumulates into 'Ey' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+flagos-ai/FlagPerf,https://github.com/flagos-ai/FlagPerf,training/benchmarks/resnet50/tensorflow2/resnet/imagenet_preprocessing.py,203,"    198: 
+    199:     features = tf.io.parse_single_example(serialized=example_serialized,
+    200:                                           features=feature_map)
+    201:     label = tf.cast(features['image/class/label'], dtype=tf.int32)
+    202: 
+>>> 203:     xmin = tf.expand_dims(features['image/object/bbox/xmin'].values, 0)
+    204:     ymin = tf.expand_dims(features['image/object/bbox/ymin'].values, 0)
+    205:     xmax = tf.expand_dims(features['image/object/bbox/xmax'].values, 0)
+    206:     ymax = tf.expand_dims(features['image/object/bbox/ymax'].values, 0)
+    207: 
+    208:     # Note that we impose an ordering of (y, x) just to make life difficult.",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+balakg/posewarp-cvpr2018,https://github.com/balakg/posewarp-cvpr2018,code/networks.py,80,"    78:     x = my_conv(x, 256)  # 8
+    79: 
+>>> 80:     x = Flatten()(x)
+    81: 
+    82:     x = Dense(256, activation='relu')(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+balakg/posewarp-cvpr2018,https://github.com/balakg/posewarp-cvpr2018,code/networks.py,191,"    186:     y1_f = tf.cast(y1, 'float32')
+    187:                 
+    188:     dx = x1_f - x
+    189:     dy = y1_f - y
+    190:                 
+>>> 191:     wa = tf.expand_dims((dx * dy), 1)
+    192:     wb = tf.expand_dims((dx * (1-dy)), 1)
+    193:     wc = tf.expand_dims(((1-dx) * dy), 1)
+    194:     wd = tf.expand_dims(((1-dx) * (1-dy)), 1)
+    195:                 
+    196:     output = tf.add_n([wa*Ia, wb*Ib, wc*Ic, wd*Id])",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+balakg/posewarp-cvpr2018,https://github.com/balakg/posewarp-cvpr2018,code/networks.py,239,"    237:         else:
+    238:             warp_i = affine_warp(src_masked, trans_in[:, :, :, i])
+>>> 239:             warps = tf.concat([warps, warp_i], 3)
+    240: 
+    241:     return warps",tf.concat() accumulates into 'warps' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+guillaumeboniface/super_resolution,https://github.com/guillaumeboniface/super_resolution,sr3/trainer/components.py,190,"    186:         feature_map_means = tf.math.reduce_mean(x, axis=(1, 2), keepdims=True)
+    187:         feature_map_std_dev = tf.math.reduce_std(x, axis=(1, 2), keepdims=True) + 1e-5
+    188:         m = tf.math.reduce_mean(feature_map_means, axis=-1, keepdims=True)
+    189:         v = tf.math.reduce_std(feature_map_means, axis=-1, keepdims=True) + 1e-5
+>>> 190:         gamma = tf.expand_dims(tf.expand_dims(tf.tensordot(noise_embedding, self.w1, 1), 1), 1)
+    191:         beta = tf.expand_dims(tf.expand_dims(tf.tensordot(noise_embedding, self.b, 1), 1), 1)
+    192:         alpha = tf.expand_dims(tf.expand_dims(tf.tensordot(noise_embedding, self.w2, 1), 1), 1)
+    193:         instance_norm = (x - feature_map_means) / feature_map_std_dev
+    194:         x = gamma * instance_norm + beta + alpha * (feature_map_means - m) / v",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+WXinlong/ASIS,https://github.com/WXinlong/ASIS,utils/pointnet_util.py,249,"    247:                 grouped_points = group_point(points, idx)
+    248:                 if use_xyz:
+>>> 249:                     grouped_points = tf.concat([grouped_points, grouped_xyz], axis=-1)
+    250:             else:
+    251:                 grouped_points = grouped_xyz",tf.concat() accumulates into 'grouped_points' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+leizhengxin/SAR-NeRF-tensorflow,https://github.com/leizhengxin/SAR-NeRF-tensorflow,run_nerf_helper.py,108,"    106:         outputs = dense(W)(outputs)
+    107:         if i in skips:
+>>> 108:             outputs = tf.concat([inputs_pts, outputs], -1)
+    109: 
+    110:     if use_viewdirs:",tf.concat() accumulates into 'outputs' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+imjal/MetaPix,https://github.com/imjal/MetaPix,posewarp/code/networks.py,80,"    78:     x = my_conv(x, 256)  # 8
+    79: 
+>>> 80:     x = Flatten()(x)
+    81: 
+    82:     x = Dense(256, activation='relu')(x)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+imjal/MetaPix,https://github.com/imjal/MetaPix,posewarp/code/networks.py,191,"    186:     y1_f = tf.cast(y1, 'float32')
+    187:                 
+    188:     dx = x1_f - x
+    189:     dy = y1_f - y
+    190:                 
+>>> 191:     wa = tf.expand_dims((dx * dy), 1)
+    192:     wb = tf.expand_dims((dx * (1-dy)), 1)
+    193:     wc = tf.expand_dims(((1-dx) * dy), 1)
+    194:     wd = tf.expand_dims(((1-dx) * (1-dy)), 1)
+    195:                 
+    196:     output = tf.add_n([wa*Ia, wb*Ib, wc*Ic, wd*Id])",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+imjal/MetaPix,https://github.com/imjal/MetaPix,posewarp/code/networks.py,239,"    237:         else:
+    238:             warp_i = affine_warp(src_masked, trans_in[:, :, :, i])
+>>> 239:             warps = tf.concat([warps, warp_i], 3)
+    240: 
+    241:     return warps",tf.concat() accumulates into 'warps' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+netpi/compound-word-transformer-tensorflow,https://github.com/netpi/compound-word-transformer-tensorflow,Model.py,461,"    459:                     y = tf.argmax(y[:, -1], -1)
+    460:                     y = tf.cast(y, tf.int64)
+>>> 461:                     gen = tf.concat([gen, tf.expand_dims(y, -1)], -1)
+    462: 
+    463:                 else:",tf.concat() accumulates into 'gen' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+netpi/compound-word-transformer-tensorflow,https://github.com/netpi/compound-word-transformer-tensorflow,Model.py,469,"    467:                     y = tf.transpose(y, (1, 0))
+    468:                     y = tf.cast(y, tf.int64)
+>>> 469:                     gen = tf.concat([gen, y], -1)
+    470: 
+    471:                 bar.update(1)",tf.concat() accumulates into 'gen' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+netpi/compound-word-transformer-tensorflow,https://github.com/netpi/compound-word-transformer-tensorflow,Model.py,576,"    574:                     y = tf.argmax(y[:, -1], -1)
+    575:                     y = tf.cast(y, tf.int64)
+>>> 576:                     gen = tf.concat([gen, tf.expand_dims(y, -1)], -1)
+    577: 
+    578:                 else:",tf.concat() accumulates into 'gen' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+netpi/compound-word-transformer-tensorflow,https://github.com/netpi/compound-word-transformer-tensorflow,Model.py,584,"    582:                     y = tf.transpose(y, (1, 0))
+    583:                     y = tf.cast(y, tf.int64)
+>>> 584:                     gen = tf.concat([gen, y], -1)
+    585: 
+    586:                 bar.update(1)",tf.concat() accumulates into 'gen' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+netpi/compound-word-transformer-tensorflow,https://github.com/netpi/compound-word-transformer-tensorflow,Model.py,784,"    782:                 gen_ft = gen_[...,0][:, 1:] #(batch_size, seq_len-1)
+    783:                 
+>>> 784:                 gen_ft = tf.concat([gen_ft, tf.expand_dims(sampling_ft, 1)],1) #(batch_size, seq_len)
+    785:                 
+    786:                 y,_ = self(gen_, False, family_type = gen_ft, h=h) # get [Bar/position Pitch Velocity Duration Tempo]",tf.concat() accumulates into 'gen_ft' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+ahnobari/LINKS,https://github.com/ahnobari/LINKS,sim.py,202,"    198:         b = tf.transpose(tf.concat([[tf.sin(phi)],[tf.cos(phi)]],0))
+    199: 
+    200:         R = tf.einsum(""ij...->ji..."", tf.concat([[a],[b]],0))
+    201:         
+>>> 202:         scaled_ij = (x[j]-x[i])/tf.expand_dims(l_ij,-1) * G[i,k]
+    203:         x_k = tf.squeeze(tf.matmul(R, tf.expand_dims(scaled_ij,-1))) + x[i]
+    204:         x_k = tf.expand_dims(x_k,0)
+    205:         x_k = tf.pad(x_k,[[k,x0.shape[0]-k-1],[0,0],[0,0]])
+    206:         x = x + x_k",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+ahnobari/LINKS,https://github.com/ahnobari/LINKS,sim.py,217,"    213:     # Note All Mecanisms in the batch are assumed to be sorted in order of path this will fail if this condition is not met
+    214:     
+    215:     x = tf.zeros([tf.shape(x0s)[0],tf.shape(x0s)[1],thetas.shape[0],2])
+    216:     
+>>> 217:     x = x + tf.expand_dims(node_types * x0s,2)
+    218:     
+    219:     m = x[:,0] + tf.tile(tf.expand_dims(tf.transpose(tf.concat([[tf.cos(thetas)],[tf.sin(thetas)]],0)),0),[tf.shape(x0s)[0],1,1]) * tf.expand_dims(tf.expand_dims(Gs[:,0,1],-1),-1)
+    220:     m = tf.expand_dims(m,1)
+    221:     m = tf.pad(m,[[0,0],[1,tf.shape(x0s)[1]-2],[0,0],[0,0]])",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+ahnobari/LINKS,https://github.com/ahnobari/LINKS,sim.py,269,"    264:         R = tf.einsum(""ijk...->jki..."", tf.concat([[a],[b]],0))
+    265:         
+    266:         xi = tf.gather_nd(x,tf.stack([tf.range(tf.shape(x0s)[0]),inds[:,0]],-1))
+    267:         xj = tf.gather_nd(x,tf.stack([tf.range(tf.shape(x0s)[0]),inds[:,1]],-1))
+    268:         
+>>> 269:         scaled_ij = (xj-xi)/tf.expand_dims(l_ijs,-1) * tf.expand_dims(gik,-1)
+    270:         
+    271:         x_k = tf.squeeze(tf.matmul(R, tf.expand_dims(scaled_ij,-1))) + xi
+    272:         x_k = tf.where(tf.tile(tf.expand_dims(node_types[:,k],-1),[1,thetas.shape[0],2])==0.0,x_k,tf.zeros_like(x_k))
+    273:         x_k = tf.expand_dims(x_k,1)
+    274:         x_k = tf.pad(x_k,[[0,0],[k,tf.shape(x0s)[1]-k-1],[0,0],[0,0]])",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+ahnobari/LINKS,https://github.com/ahnobari/LINKS,sim.py,271,"    267:         xj = tf.gather_nd(x,tf.stack([tf.range(tf.shape(x0s)[0]),inds[:,1]],-1))
+    268:         
+    269:         scaled_ij = (xj-xi)/tf.expand_dims(l_ijs,-1) * tf.expand_dims(gik,-1)
+    270:         
+>>> 271:         x_k = tf.squeeze(tf.matmul(R, tf.expand_dims(scaled_ij,-1))) + xi
+    272:         x_k = tf.where(tf.tile(tf.expand_dims(node_types[:,k],-1),[1,thetas.shape[0],2])==0.0,x_k,tf.zeros_like(x_k))
+    273:         x_k = tf.expand_dims(x_k,1)
+    274:         x_k = tf.pad(x_k,[[0,0],[k,tf.shape(x0s)[1]-k-1],[0,0],[0,0]])
+    275:         x = x + x_k",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+Mayzazhou/Cross-MPI,https://github.com/Mayzazhou/Cross-MPI,crossmpi/mpi.py,784,"    782:         rgba_layers = curr_rgba
+    783:       else:
+>>> 784:         rgba_layers = tf.concat([rgba_layers, curr_rgba], axis=3)
+    785:     rgba_layers = tf.reshape(rgba_layers, [batch_size, image_height, image_width, planes_num, 4])
+    786: ",tf.concat() accumulates into 'rgba_layers' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+PurdueDualityLab/TensorFlowModels,https://github.com/PurdueDualityLab/TensorFlowModels,official/vision/beta/projects/yolo/ops/loss_utils.py,183,"    179:       y = tf.range(0, lheight)
+    180:       x = tf.range(0, lwidth)
+    181:       num = tf.shape(anchors)[0]
+    182:       x_left = tf.tile(
+>>> 183:           tf.transpose(tf.expand_dims(y, axis=-1), perm=[1, 0]), [lwidth, 1])
+    184:       y_left = tf.tile(tf.expand_dims(x, axis=-1), [1, lheight])
+    185:       x_y = tf.stack([x_left, y_left], axis=-1)
+    186:       x_y = tf.cast(x_y, dtype=dtype)
+    187:       x_y = tf.expand_dims(",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+PurdueDualityLab/TensorFlowModels,https://github.com/PurdueDualityLab/TensorFlowModels,official/vision/beta/projects/yolo/ops/loss_utils.py,269,"    264:     box_slice = tf.slice(boxes, [0, idx * TILE_SIZE, 0],
+    265:                          [batch_size, TILE_SIZE, 4])
+    266: 
+    267:     # match the dimentions of the slice to the model predictions
+    268:     # shape: [batch_size, 1, 1, num, TILE_SIZE, 4]
+>>> 269:     box_slice = tf.expand_dims(box_slice, axis=1)
+    270:     box_slice = tf.expand_dims(box_slice, axis=1)
+    271:     box_slice = tf.expand_dims(box_slice, axis=1)
+    272: 
+    273:     box_grid = tf.expand_dims(pred_box, axis=-2)
+    274: ",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+PurdueDualityLab/TensorFlowModels,https://github.com/PurdueDualityLab/TensorFlowModels,official/vision/beta/projects/yolo/ops/loss_utils.py,278,"    274: 
+    275:     # capture the classes
+    276:     class_slice = tf.slice(classes, [0, idx * TILE_SIZE],
+    277:                            [batch_size, TILE_SIZE])
+>>> 278:     class_slice = tf.expand_dims(class_slice, axis=1)
+    279:     class_slice = tf.expand_dims(class_slice, axis=1)
+    280:     class_slice = tf.expand_dims(class_slice, axis=1)
+    281: 
+    282:     iou = self.box_iou(box_slice, box_grid)",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+duncanwp/ESEm,https://github.com/duncanwp/ESEm,esem/abc_sampler.py,216,"    214: 
+    215:         valid_samples = constrain(implausibility, tolerance, threshold)
+>>> 216:         all_valid = tf.concat([all_valid, valid_samples], 0)
+    217: 
+    218:     return all_valid",tf.concat() accumulates into 'all_valid' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+duncanwp/ESEm,https://github.com/duncanwp/ESEm,esem/abc_sampler.py,246,"    244:         implausibility = _calc_implausibility(emulator_mean, obs, tot_sd)
+    245: 
+>>> 246:         all_implausibility = tf.concat([all_implausibility, implausibility], 0)
+    247: 
+    248:     return all_implausibility",tf.concat() accumulates into 'all_implausibility' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+artyompal/tpu_models,https://github.com/artyompal/tpu_models,models/experimental/inception/inception_v3.py,348,"    343: 
+    344:     features = tf.parse_single_example(serialized_proto, keys_to_features)
+    345: 
+    346:     bbox = None
+    347:     if FLAGS.use_annotated_bbox:
+>>> 348:       xmin = tf.expand_dims(features['image/object/bbox/xmin'].values, 0)
+    349:       ymin = tf.expand_dims(features['image/object/bbox/ymin'].values, 0)
+    350:       xmax = tf.expand_dims(features['image/object/bbox/xmax'].values, 0)
+    351:       ymax = tf.expand_dims(features['image/object/bbox/ymax'].values, 0)
+    352: 
+    353:       # Note that we impose an ordering of (y, x) just to make life difficult.",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+meidachen/STPLS3D,https://github.com/meidachen/STPLS3D,RandLA-Net/RandLANet.py,75,"    73:             inserted_value = tf.zeros((1,), dtype=tf.int32)
+    74:             for ign_label in self.config.ignored_label_inds:
+>>> 75:                 reducing_list = tf.concat([reducing_list[:ign_label], inserted_value, reducing_list[ign_label:]], 0)
+    76:             valid_labels = tf.gather(reducing_list, valid_labels_init)
+    77: ",tf.concat() accumulates into 'reducing_list' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+byteps/examples,https://github.com/byteps/examples,tensorflow/transformer/official/vision/image_classification/imagenet_preprocessing.py,200,"    195: 
+    196:   features = tf.io.parse_single_example(serialized=example_serialized,
+    197:                                         features=feature_map)
+    198:   label = tf.cast(features['image/class/label'], dtype=tf.int32)
+    199: 
+>>> 200:   xmin = tf.expand_dims(features['image/object/bbox/xmin'].values, 0)
+    201:   ymin = tf.expand_dims(features['image/object/bbox/ymin'].values, 0)
+    202:   xmax = tf.expand_dims(features['image/object/bbox/xmax'].values, 0)
+    203:   ymax = tf.expand_dims(features['image/object/bbox/ymax'].values, 0)
+    204: 
+    205:   # Note that we impose an ordering of (y, x) just to make life difficult.",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+GumTreeDiff/datasets,https://github.com/GumTreeDiff/datasets,bugsinpy/after/keras/18/keras_backend_tensorflow_backend.py,3710,"    3706:         strides = (1,) + strides * 2 + (1,)
+    3707:     else:
+    3708:         spatial_start_dim = 2
+    3709:         strides = (1, 1) + strides * 2
+>>> 3710:     x = tf.expand_dims(x, spatial_start_dim)
+    3711:     depthwise_kernel = tf.expand_dims(depthwise_kernel, 0)
+    3712:     pointwise_kernel = tf.expand_dims(pointwise_kernel, 0)
+    3713:     dilation_rate = (1,) + dilation_rate
+    3714: ",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+atul-g/object_detection_on_cavities,https://github.com/atul-g/object_detection_on_cavities,models/official/vision/image_classification/imagenet_preprocessing.py,200,"    195: 
+    196:   features = tf.io.parse_single_example(serialized=example_serialized,
+    197:                                         features=feature_map)
+    198:   label = tf.cast(features['image/class/label'], dtype=tf.int32)
+    199: 
+>>> 200:   xmin = tf.expand_dims(features['image/object/bbox/xmin'].values, 0)
+    201:   ymin = tf.expand_dims(features['image/object/bbox/ymin'].values, 0)
+    202:   xmax = tf.expand_dims(features['image/object/bbox/xmax'].values, 0)
+    203:   ymax = tf.expand_dims(features['image/object/bbox/ymax'].values, 0)
+    204: 
+    205:   # Note that we impose an ordering of (y, x) just to make life difficult.",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+lerrel/rllab-adv,https://github.com/lerrel/rllab-adv,sandbox/rocky/tf/core/layers.py,595,"    591:     vals = []
+    592:     for dim in [0, 1]:
+    593:         dim_val = x.get_shape()[dim + 1].value
+    594:         lin = tf.linspace(-1.0, 1.0, dim_val)
+>>> 595:         lin = tf.expand_dims(lin, 1 - dim)
+    596:         lin = tf.expand_dims(lin, 0)
+    597:         lin = tf.expand_dims(lin, 3)
+    598:         m = tf.reduce_max(x, [1, 2], keep_dims=True)
+    599:         e = tf.exp((x - m) / temp) + 1e-5",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+datemoon/tf-code-acoustics,https://github.com/datemoon/tf-code-acoustics,model/nnet_compoment.py,102,"    100:                 start_end = input_feats[:i]
+    101:                 while i < 0:
+>>> 102:                     start_end = tf.concat([start, start_end], self.time)
+    103:                     i += 1
+    104:                 concat_input = start_end",tf.concat() accumulates into 'start_end' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+datemoon/tf-code-acoustics,https://github.com/datemoon/tf-code-acoustics,model/nnet_compoment.py,112,"    110:                 end_start = input_feats[i:]
+    111:                 while i > 0:
+>>> 112:                     end_start = tf.concat([end_start, end], self.time)
+    113:                     i -= 1
+    114:                 concat_input = end_start",tf.concat() accumulates into 'end_start' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+datemoon/tf-code-acoustics,https://github.com/datemoon/tf-code-acoustics,model/nnet_compoment.py,162,"    160:                     output = concat_input
+    161:                 else:
+>>> 162:                     output = tf.concat([output, concat_input], -1)
+    163:             return output
+    164: ",tf.concat() accumulates into 'output' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+emmanuelpignat/tf_robot_learning,https://github.com/emmanuelpignat/tf_robot_learning,tf_robot_learning/utils/tf_utils.py,254,"    250: 	# make h [..., 1], multiply and reduce
+    251: 	locs = tf.stack([mvn.loc for mvn in mvns])
+    252: 	loc = tf.reduce_mean(locs, axis=0)
+    253: 
+>>> 254: 	dlocs = locs - tf.expand_dims(loc, axis=0)
+    255: 	cov_locs = tf.matmul(tf.expand_dims(dlocs, axis=-1),
+    256: 						 tf.expand_dims(dlocs, axis=-2))
+    257: 
+    258: ",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+emmanuelpignat/tf_robot_learning,https://github.com/emmanuelpignat/tf_robot_learning,tf_robot_learning/utils/tf_utils.py,277,"    272: 	:return:
+    273: 	""""""
+    274: 
+    275: 	if h is not None:
+    276: 		# make h [..., 1], multiply and reduce
+>>> 277: 		loc = tf.reduce_sum(tf.expand_dims(h, -1) * locs, axis=axis)
+    278: 
+    279: 		dlocs = locs - tf.expand_dims(loc, axis=axis)
+    280: 		cov_locs = tf.matmul(tf.expand_dims(dlocs, axis=-1),
+    281: 							 tf.expand_dims(dlocs, axis=-2))
+    282: ",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+emmanuelpignat/tf_robot_learning,https://github.com/emmanuelpignat/tf_robot_learning,tf_robot_learning/utils/tf_utils.py,279,"    275: 	if h is not None:
+    276: 		# make h [..., 1], multiply and reduce
+    277: 		loc = tf.reduce_sum(tf.expand_dims(h, -1) * locs, axis=axis)
+    278: 
+>>> 279: 		dlocs = locs - tf.expand_dims(loc, axis=axis)
+    280: 		cov_locs = tf.matmul(tf.expand_dims(dlocs, axis=-1),
+    281: 							 tf.expand_dims(dlocs, axis=-2))
+    282: 
+    283: 		# make h [..., 1, 1]",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+emmanuelpignat/tf_robot_learning,https://github.com/emmanuelpignat/tf_robot_learning,tf_robot_learning/utils/tf_utils.py,291,"    287: 	else:
+    288: 		# make h [..., 1], multiply and reduce
+    289: 		loc = tf.reduce_mean(locs, axis=axis)
+    290: 
+>>> 291: 		dlocs = locs - tf.expand_dims(loc, axis=axis)
+    292: 		cov_locs = tf.matmul(tf.expand_dims(dlocs, axis=-1),
+    293: 							 tf.expand_dims(dlocs, axis=-2))
+    294: 
+    295: 		# make h [..., 1, 1]",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+GumTreeDiff/datasets,https://github.com/GumTreeDiff/datasets,bugsinpy/after/keras/26/keras_backend_tensorflow_backend.py,3570,"    3566:         strides = (1,) + strides * 2 + (1,)
+    3567:     else:
+    3568:         spatial_start_dim = 2
+    3569:         strides = (1, 1) + strides * 2
+>>> 3570:     x = tf.expand_dims(x, spatial_start_dim)
+    3571:     depthwise_kernel = tf.expand_dims(depthwise_kernel, 0)
+    3572:     pointwise_kernel = tf.expand_dims(pointwise_kernel, 0)
+    3573:     dilation_rate = (1,) + dilation_rate
+    3574: ",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+AI4Science-WestlakeU/diffphycon,https://github.com/AI4Science-WestlakeU/diffphycon,baselines/sac_smoke/phi/control/iksm.py,37,"    35:         y = upsample2x(y)
+    36:         res_in = resolutions[i][:, 0:y.shape[1], 0:y.shape[2], :]
+>>> 37:         y = tf.concat([y, res_in], axis=-1)
+    38:         if i < len(resolutions)-1:
+    39:             y = tf.pad(y, [[0, 0], [0, 1], [0, 1], [0, 0]], mode=""SYMMETRIC"")",tf.concat() accumulates into 'y' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+AI4Science-WestlakeU/diffphycon,https://github.com/AI4Science-WestlakeU/diffphycon,baselines/sac_smoke/phi/control/iksm.py,68,"    66:         y = upsample2x(y)
+    67:         res_in = resolution_data[:, 0:y.shape[1], 0:y.shape[2], :]
+>>> 68:         y = tf.concat([y, res_in], axis=-1)
+    69:         if i < len(resolutions)-2:
+    70:             y = tf.pad(y, [[0, 0], [0, 1], [0, 1], [0, 0]], mode=""SYMMETRIC"")",tf.concat() accumulates into 'y' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+Ptolemy-DL/Ptolemy,https://github.com/Ptolemy-DL/Ptolemy,src/nninst/backend/tensorflow/dataset/imagenet_raw.py,113,"    108:     )
+    109: 
+    110:     features = tf.parse_single_example(example_serialized, feature_map)
+    111:     label = tf.cast(features[""image/class/label""], dtype=tf.int32)
+    112: 
+>>> 113:     xmin = tf.expand_dims(features[""image/object/bbox/xmin""].values, 0)
+    114:     ymin = tf.expand_dims(features[""image/object/bbox/ymin""].values, 0)
+    115:     xmax = tf.expand_dims(features[""image/object/bbox/xmax""].values, 0)
+    116:     ymax = tf.expand_dims(features[""image/object/bbox/ymax""].values, 0)
+    117: 
+    118:     # Note that we impose an ordering of (y, x) just to make life difficult.",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+lorenzonava96/SAR-and-DL-for-Landslide-Rapid-Assessment,https://github.com/lorenzonava96/SAR-and-DL-for-Landslide-Rapid-Assessment,SAR-LRA Tool V2/utils.py,37,"    35: 
+    36:     drop1 = Dropout(drop)(pool3)
+>>> 37:     flat = Flatten()(drop1)
+    38:     en = Dense(filtersFirstLayer * 8, activation='relu')(flat)
+    39:     out = Dense(1, activation='sigmoid')(en)","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+nthu-datalab/On.the.Trade-off.between.Adversarial.and.Backdoor.Robustness,https://github.com/nthu-datalab/On.the.Trade-off.between.Adversarial.and.Backdoor.Robustness,imagenet/models/official/vision/image_classification/imagenet_preprocessing.py,210,"    205: 
+    206:   features = tf.io.parse_single_example(serialized=example_serialized,
+    207:                                         features=feature_map)
+    208:   label = tf.cast(features['image/class/label'], dtype=tf.int32)
+    209: 
+>>> 210:   xmin = tf.expand_dims(features['image/object/bbox/xmin'].values, 0)
+    211:   ymin = tf.expand_dims(features['image/object/bbox/ymin'].values, 0)
+    212:   xmax = tf.expand_dims(features['image/object/bbox/xmax'].values, 0)
+    213:   ymax = tf.expand_dims(features['image/object/bbox/ymax'].values, 0)
+    214: 
+    215:   # Note that we impose an ordering of (y, x) just to make life difficult.",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+Enigma-li/Free2CAD,https://github.com/Enigma-li/Free2CAD,networkTraining/scripts/train_Grouper.py,173,"    169:         cur_strokes = tf.subtract(1.0, cur_strokes)  # inverse stroke value: background-0.0, strokes-1.0
+    170:         cur_gp_labels = tf.slice(label_pred, [itr, 0, 0], [1, cur_nb_g, cur_nb_s])  # [1, nb_g, nb_s]
+    171:         cur_gp_labels = tf.reshape(cur_gp_labels, [cur_nb_g, cur_nb_s])  # [nb_g, nb_s]
+    172: 
+>>> 173:         cur_stroke_rep = tf.repeat(tf.expand_dims(cur_strokes, axis=0), cur_nb_g, axis=0)  # [nb_g, nb_s, 256, 256, 1]
+    174:         cur_gp_label_rep = tf.repeat(tf.expand_dims(cur_gp_labels, axis=2), 256, axis=2)  # [nb_g, nb_s, 256]
+    175:         cur_gp_label_rep = tf.repeat(tf.expand_dims(cur_gp_label_rep, axis=3), 256,
+    176:                                      axis=3)  # [nb_g, nb_s, 256, 256]
+    177:         cur_gp_label_rep = tf.reshape(cur_gp_label_rep,",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+Enigma-li/Free2CAD,https://github.com/Enigma-li/Free2CAD,networkTraining/scripts/train_Grouper.py,560,"    556:         recons_input_cook = net.decoder(input_cook)   # [nb_stroke, 256, 256, 1]
+    557: 
+    558:         # new scheme: select all the strokes within one group and forward network
+    559:         # [nb_g, nb_s, 256, 256, 1]
+>>> 560:         input_trans_rep = tf.repeat(tf.expand_dims(input_trans, axis=0), nb_gp, axis=0)
+    561:         # [nb_g, nb_s, 256, 256, 1]
+    562:         label_rep = tf.repeat(tf.expand_dims(cur_label, axis=2), gp_embSize, axis=2)
+    563:         label_rep = tf.repeat(tf.expand_dims(label_rep, axis=3), gp_embSize, axis=3)
+    564:         label_rep = tf.reshape(label_rep, [nb_gp, nb_stroke, gp_embSize, gp_embSize, 1])",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+Enigma-li/Free2CAD,https://github.com/Enigma-li/Free2CAD,networkTraining/scripts/train_Grouper.py,682,"    678:         input_cook = net.encoder(input_trans, training=False)  # [nb_stroke, 256]
+    679: 
+    680:         # group token
+    681:         # [nb_g, nb_s, 256, 256, 1]
+>>> 682:         input_trans_rep = tf.repeat(tf.expand_dims(input_trans, axis=0), nb_gp, axis=0)
+    683:         # [nb_g, nb_s, 256, 256, 1]
+    684:         label_rep = tf.repeat(tf.expand_dims(cur_label, axis=2), gp_embSize, axis=2)
+    685:         label_rep = tf.repeat(tf.expand_dims(label_rep, axis=3), gp_embSize, axis=3)
+    686:         label_rep = tf.reshape(label_rep, [nb_gp, nb_stroke, gp_embSize, gp_embSize, 1])",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+AliaksandrSiarohin/pose-gan,https://github.com/AliaksandrSiarohin/pose-gan,stn.py,114,"    109:         x0 = tf.cast(x0, 'float32')
+    110:         x1 = tf.cast(x1, 'float32')
+    111:         y0 = tf.cast(y0, 'float32')
+    112:         y1 = tf.cast(y1, 'float32')
+    113: 
+>>> 114:         area_a = tf.expand_dims(((x1 - x) * (y1 - y)), 1)
+    115:         area_b = tf.expand_dims(((x1 - x) * (y - y0)), 1)
+    116:         area_c = tf.expand_dims(((x - x0) * (y1 - y)), 1)
+    117:         area_d = tf.expand_dims(((x - x0) * (y - y0)), 1)
+    118:         output = tf.add_n([area_a * pixel_values_a,
+    119:                            area_b * pixel_values_b,",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+MutianLiu-SHU/STA-Net,https://github.com/MutianLiu-SHU/STA-Net,sta.py,57,"    55:         super(e_f_attention, self).__init__()
+    56: 
+>>> 57:         self.q_flat = layers.Flatten()
+    58:         self.q_proj = layers.Dense(emb_size)
+    59: ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+MutianLiu-SHU/STA-Net,https://github.com/MutianLiu-SHU/STA-Net,sta.py,280,"    278:     fnirs_feature_pweight = layers.Dense(256, activation='elu')(fnirs_feature_pweight)
+    279: 
+>>> 280:     eeg_feature = layers.Flatten()(eeg2)
+    281:     eeg_feature = layers.Dense(256, activation='elu')(eeg_feature)
+    282:     ","Flatten() directly before Dense layer. Creates a massive intermediate tensor and weight matrix. GlobalAveragePooling2D/GlobalMaxPooling2D would reduce dimensionality first, using far less memory."
+CompVis/brushstroke-parameterized-style-transfer,https://github.com/CompVis/brushstroke-parameterized-style-transfer,ops.py,46,"    40:        (tensor): Coordinates of the points on the Bezier curves, shape [N, num_points, 2] 
+    41:     """"""
+    42:     N, _ = s.shape.as_list()
+    43:     t = tf.linspace(0., 1., num_points)
+    44:     t = tf.cast(t, dtype=dtype)
+    45:     t = tf.stack([t] * N, axis=0)
+>>> 46:     s_x = tf.expand_dims(s[..., 0], axis=1)
+    47:     s_y = tf.expand_dims(s[..., 1], axis=1)
+    48:     e_x = tf.expand_dims(e[..., 0], axis=1)
+    49:     e_y = tf.expand_dims(e[..., 1], axis=1)
+    50:     c_x = tf.expand_dims(c[..., 0], axis=1)
+    51:     c_y = tf.expand_dims(c[..., 1], axis=1)
+    52:     x = c_x + (1. - t) ** 2 * (s_x - c_x) + t ** 2 * (e_x - c_x)",5 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 5.
+Stephlat/Multi-source-Human-Image-Generation,https://github.com/Stephlat/Multi-source-Human-Image-Generation,stn.py,114,"    109:         x0 = tf.cast(x0, 'float32')
+    110:         x1 = tf.cast(x1, 'float32')
+    111:         y0 = tf.cast(y0, 'float32')
+    112:         y1 = tf.cast(y1, 'float32')
+    113: 
+>>> 114:         area_a = tf.expand_dims(((x1 - x) * (y1 - y)), 1)
+    115:         area_b = tf.expand_dims(((x1 - x) * (y - y0)), 1)
+    116:         area_c = tf.expand_dims(((x - x0) * (y1 - y)), 1)
+    117:         area_d = tf.expand_dims(((x - x0) * (y - y0)), 1)
+    118:         output = tf.add_n([area_a * pixel_values_a,
+    119:                            area_b * pixel_values_b,",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+crisbodnar/TensorFlow-NEAT,https://github.com/crisbodnar/TensorFlow-NEAT,tf_neat/cppn.py,256,"    251: def get_coord_inputs(in_coords, out_coords, batch_size=None):
+    252:     n_in = in_coords.shape[0]
+    253:     n_out = out_coords.shape[0]
+    254: 
+    255:     if batch_size is not None:
+>>> 256:         in_coords = expand(tf.expand_dims(in_coords, 0), (batch_size, n_in, 2))
+    257:         out_coords = expand(tf.expand_dims(out_coords, 0), (batch_size, n_out, 2))
+    258: 
+    259:         x_out = expand(tf.expand_dims(out_coords[:, :, 0], 2), (batch_size, n_out, n_in))
+    260:         y_out = expand(tf.expand_dims(out_coords[:, :, 1], 2), (batch_size, n_out, n_in))
+    261:         x_in = expand(tf.expand_dims(in_coords[:, :, 0], 1), (batch_size, n_out, n_in))",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+crisbodnar/TensorFlow-NEAT,https://github.com/crisbodnar/TensorFlow-NEAT,tf_neat/cppn.py,259,"    254: 
+    255:     if batch_size is not None:
+    256:         in_coords = expand(tf.expand_dims(in_coords, 0), (batch_size, n_in, 2))
+    257:         out_coords = expand(tf.expand_dims(out_coords, 0), (batch_size, n_out, 2))
+    258: 
+>>> 259:         x_out = expand(tf.expand_dims(out_coords[:, :, 0], 2), (batch_size, n_out, n_in))
+    260:         y_out = expand(tf.expand_dims(out_coords[:, :, 1], 2), (batch_size, n_out, n_in))
+    261:         x_in = expand(tf.expand_dims(in_coords[:, :, 0], 1), (batch_size, n_out, n_in))
+    262:         y_in = expand(tf.expand_dims(in_coords[:, :, 1], 1), (batch_size, n_out, n_in))
+    263:     else:
+    264:         x_out = expand(tf.expand_dims(out_coords[:, 0], 1), (n_out, n_in))",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+crisbodnar/TensorFlow-NEAT,https://github.com/crisbodnar/TensorFlow-NEAT,tf_neat/cppn.py,264,"    259:         x_out = expand(tf.expand_dims(out_coords[:, :, 0], 2), (batch_size, n_out, n_in))
+    260:         y_out = expand(tf.expand_dims(out_coords[:, :, 1], 2), (batch_size, n_out, n_in))
+    261:         x_in = expand(tf.expand_dims(in_coords[:, :, 0], 1), (batch_size, n_out, n_in))
+    262:         y_in = expand(tf.expand_dims(in_coords[:, :, 1], 1), (batch_size, n_out, n_in))
+    263:     else:
+>>> 264:         x_out = expand(tf.expand_dims(out_coords[:, 0], 1), (n_out, n_in))
+    265:         y_out = expand(tf.expand_dims(out_coords[:, 1], 1), (n_out, n_in))
+    266:         x_in = expand(tf.expand_dims(in_coords[:, 0], 0), (n_out, n_in))
+    267:         y_in = expand(tf.expand_dims(in_coords[:, 1], 0), (n_out, n_in))
+    268: 
+    269:     return (x_out, y_out), (x_in, y_in)",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+thudzj/NeuralEigenFunction,https://github.com/thudzj/NeuralEigenFunction,nngpk.py,76,"    74: 		def __relu_kernel_tf(X, X2=None):
+    75: 			if X2 is not None:
+>>> 76: 				X = tf.concat([X, X2], 0)
+    77: 
+    78: 			K = tf.matmul(X, X, transpose_b=True) / tf.cast(X.shape[-1], tf.float32) * self.w_var_list[0] + self.b_var_list[0]",tf.concat() accumulates into 'X' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+thudzj/NeuralEigenFunction,https://github.com/thudzj/NeuralEigenFunction,nngpk.py,197,"    195: 			print(X, X2)
+    196: 			if X2 is not None:
+>>> 197: 				X = tf.concat([X, X2], 0)
+    198: 
+    199: 			K = tf.matmul(X, X, transpose_b=True) / tf.cast(X.shape[-1], tf.float32) * self.w_var_list[0] + self.b_var_list[0]",tf.concat() accumulates into 'X' inside a loop. Tensor grows every iteration — previous allocations not freed. Use tf.TensorArray or list + single concat after loop.
+bzhangGo/st_from_scratch,https://github.com/bzhangGo/st_from_scratch,modules/speech.py,137,"    133: 
+    134:     log_mel_sgram = tf.log(tf.maximum(log_noise_floor, mel_spectrograms))
+    135: 
+    136:     if apply_mask:
+>>> 137:         log_mel_sgram *= tf.expand_dims(masks, -1)
+    138:         frames *= tf.expand_dims(masks, -1)
+    139: 
+    140:     return tf.expand_dims(log_mel_sgram, -1, name=""mel_sgrams""), masks, frames
+    141: ",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+mit-han-lab/flatformer,https://github.com/mit-han-lab/flatformer,tools/data_converter/waymo_converter.py,467,"    463:                 range_image_mask = range_image_mask & nlz_mask
+    464: 
+    465:             range_image_cartesian = \
+    466:                 range_image_utils.extract_point_cloud_from_range_image(
+>>> 467:                     tf.expand_dims(range_image_tensor[..., 0], axis=0),
+    468:                     tf.expand_dims(extrinsic, axis=0),
+    469:                     tf.expand_dims(tf.convert_to_tensor(
+    470:                         value=beam_inclinations), axis=0),
+    471:                     pixel_pose=pixel_pose_local,",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+tmulc18/S2SCycleGAN,https://github.com/tmulc18/S2SCycleGAN,Tacotron_GAN/train.py,80,"    75:                 
+    76:                 self.expected2_h = tf.reduce_mean(tf.reduce_mean(self.z, -1), 0)
+    77:                 self.got2_h = tf.reduce_mean(tf.reduce_mean(self.outputs2, -1),0)
+    78:                 
+    79:                 ## images
+>>> 80:                 self.expected1_i = tf.expand_dims(tf.reduce_mean(self.y[:1], -1, keep_dims=True), 1)
+    81:                 self.got1_i = tf.expand_dims(tf.reduce_mean(self.outputs1[:1], -1, keep_dims=True), 1)
+    82:                 
+    83:                 self.expected2_i = tf.expand_dims(tf.reduce_mean(self.z[:1], -1, keep_dims=True), 1)
+    84:                 self.got2_i = tf.expand_dims(tf.reduce_mean(self.outputs2[:1], -1, keep_dims=True), 1)
+    85:                                                 ",4 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 4.
+luofuli/Fine-grained-Sentiment-Transfer,https://github.com/luofuli/Fine-grained-Sentiment-Transfer,seq2sentiseq/model.py,156,"    152: 
+    153:                         if not dynamic_v:
+    154:                             prev_probs = sum_weight * prev_seman_probs + (1 - sum_weight) * prev_senti_probs
+    155:                         else:
+>>> 156:                             v1 = tf.expand_dims(vs[0], 0)  # [1, B]
+    157:                             v2 = tf.expand_dims(vs[1], 0)
+    158:                             v = tf.reduce_sum(v1 * prev_seman_probs + v2 * prev_senti_probs, axis=-1)  # [B]
+    159:                             v = tf.expand_dims(tf.nn.sigmoid(v), -1)  # [B, 1]
+    160:                             prev_probs = v * prev_seman_probs + (1 - v) * prev_senti_probs",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+georghess/voxel-mae,https://github.com/georghess/voxel-mae,tools/data_converter/waymo_converter.py,467,"    463:                 range_image_mask = range_image_mask & nlz_mask
+    464: 
+    465:             range_image_cartesian = \
+    466:                 range_image_utils.extract_point_cloud_from_range_image(
+>>> 467:                     tf.expand_dims(range_image_tensor[..., 0], axis=0),
+    468:                     tf.expand_dims(extrinsic, axis=0),
+    469:                     tf.expand_dims(tf.convert_to_tensor(
+    470:                         value=beam_inclinations), axis=0),
+    471:                     pixel_pose=pixel_pose_local,",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.
+y9miao/VLSG,https://github.com/y9miao/VLSG,src/models/lidarclip/SST/tools/data_converter/waymo_converter.py,467,"    463:                 range_image_mask = range_image_mask & nlz_mask
+    464: 
+    465:             range_image_cartesian = \
+    466:                 range_image_utils.extract_point_cloud_from_range_image(
+>>> 467:                     tf.expand_dims(range_image_tensor[..., 0], axis=0),
+    468:                     tf.expand_dims(extrinsic, axis=0),
+    469:                     tf.expand_dims(tf.convert_to_tensor(
+    470:                         value=beam_inclinations), axis=0),
+    471:                     pixel_pose=pixel_pose_local,",3 consecutive tf.expand_dims() calls. Each allocates a new tensor copy. A single tf.reshape() to target shape would use 1 allocation instead of 3.

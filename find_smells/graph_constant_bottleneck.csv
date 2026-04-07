@@ -1,0 +1,1322 @@
+repository,repo_url,file_path,line_number,code_snippet,explanation
+Tharun24/MACH,https://github.com/Tharun24/MACH,src/train.py,23,"    20: r = int(args.repetition) # which repetition
+    21: 
+    22: ############################## Test code from here ################################
+>>> 23: lookup = tf.constant(np.load(config.lookups_loc+'bucket_order_'+str(r)+'.npy'))
+    24: query_lookup = tf.constant(np.load(config.query_lookups_loc+'bucket_order_'+str(r)+'.npy'))
+    25: 
+    26: train_files = glob.glob(config.tfrecord_loc+'*_train.tfrecords')",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+Tharun24/MACH,https://github.com/Tharun24/MACH,src/train.py,24,"    21: 
+    22: ############################## Test code from here ################################
+    23: lookup = tf.constant(np.load(config.lookups_loc+'bucket_order_'+str(r)+'.npy'))
+>>> 24: query_lookup = tf.constant(np.load(config.query_lookups_loc+'bucket_order_'+str(r)+'.npy'))
+    25: 
+    26: train_files = glob.glob(config.tfrecord_loc+'*_train.tfrecords')
+    27: ",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+caoyue10/cvpr17-dvsq,https://github.com/caoyue10/cvpr17-dvsq,net.py,85,"    82:             ICM_X_expand = tf.expand_dims(self.ICM_X_residual, 1)
+    83:             ICM_C_m_expand = tf.expand_dims(self.ICM_C_m, 0)
+    84:             # N*sc*D  *  D*n
+>>> 85:             word_dict = tf.constant(np.loadtxt(self.wordvec_dict), dtype=tf.float32)
+    86:             ICM_word_dict = tf.reshape(tf.matmul(tf.reshape(tf.sub(ICM_X_expand, ICM_C_m_expand), [self.code_batch_size*self.subcenter_num, self.output_dim]), tf.transpose(word_dict)), [self.code_batch_size, self.subcenter_num, self.n_class])
+    87:             ICM_sum_squares = tf.reduce_sum(tf.square(ICM_word_dict), reduction_indices = 2)
+    88:             ICM_best_centers = tf.argmin(ICM_sum_squares, 1)",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+caoyue10/cvpr17-dvsq,https://github.com/caoyue10/cvpr17-dvsq,net.py,315,"    312:         ### loss function
+    313:         if self.loss_type == 'cos_margin_multi_label':
+    314:             assert self.output_dim == 300
+>>> 315:             word_dict = tf.constant(np.loadtxt(self.wordvec_dict), dtype=tf.float32)
+    316:             margin_param = tf.constant(self.margin_param, dtype=tf.float32)
+    317: 
+    318:             # N: batchsize, L: label_dim, D: 300",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+caoyue10/cvpr17-dvsq,https://github.com/caoyue10/cvpr17-dvsq,net.py,361,"    358:             self.check2 = tf.check_numerics(cos_2, ""cos_2"")
+    359:         elif self.loss_type == 'cos_softmargin_multi_label':
+    360:             assert self.output_dim == 300
+>>> 361:             word_dict = tf.constant(np.loadtxt(self.wordvec_dict), dtype=tf.float32)
+    362:             #margin_param = tf.constant(self.margin_param, dtype=tf.float32)
+    363: 
+    364:             # N: batchsize, L: label_dim, D: 300",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+caoyue10/cvpr17-dvsq,https://github.com/caoyue10/cvpr17-dvsq,net.py,412,"    409:         
+    410:         
+    411:         self.precq_loss_img = tf.reduce_mean(tf.reduce_sum(tf.square(tf.sub(self.img_last_layer, tf.matmul(self.b_img, self.C))), 1))
+>>> 412:         word_dict = tf.constant(np.loadtxt(self.wordvec_dict), dtype=tf.float32)
+    413:         self.cq_loss_img = tf.reduce_mean(tf.reduce_sum(tf.square(tf.matmul(tf.sub(self.img_last_layer, tf.matmul(self.b_img, self.C)), tf.transpose(word_dict))), 1))
+    414:         self.q_lambda = tf.Variable(self.cq_lambda, name='cq_lambda')
+    415:         self.cq_loss = tf.mul(self.q_lambda, self.cq_loss_img)",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+Apress/Machine-Learning-for-Economics-and-Finance-in-TensorFlow-2,https://github.com/Apress/Machine-Learning-for-Economics-and-Finance-in-TensorFlow-2,chapter1.py,238,"    235: (32, 64, 64, 3)
+    236: 
+    237: # Convert numpy arrays into tensorflow constants.
+>>> 238: images = tf.constant(images, tf.float32)
+    239: transform = tf.constant(transform, tf.float32)
+    240: 
+    241: # Perform tensor addition with tf.add().",tf.constant(images) where 'images' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+Apress/Machine-Learning-for-Economics-and-Finance-in-TensorFlow-2,https://github.com/Apress/Machine-Learning-for-Economics-and-Finance-in-TensorFlow-2,chapter1.py,388,"    385: images = np.load('images.npy')
+    386: 
+    387: # Convert the numpy array into a TensorFlow constant.
+>>> 388: images = tf.constant(images)
+    389: 
+    390: # Normalize pixel values to [0,1] interval.
+    391: images = images / 255.0",tf.constant(images) where 'images' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+Apress/Machine-Learning-for-Economics-and-Finance-in-TensorFlow-2,https://github.com/Apress/Machine-Learning-for-Economics-and-Finance-in-TensorFlow-2,chapter1.py,418,"    415: data = np.load('data.csv')
+    416: 
+    417: # Convert data to a TensorFlow constant.
+>>> 418: data_tensorflow = tf.constant(data)
+    419: 
+    420: # Convert data to a numpy array.
+    421: data_numpy = np.array(data)",tf.constant(data) where 'data' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+yinoue93/CS231N_final_proj,https://github.com/yinoue93/CS231N_final_proj,models.py,241,"    238: 
+    239:         if self.config.use_class_imbalance:
+    240:             imbalance_fname = CLASS_IMBALANCE_FILE if self.config.color_space=='rgb' else CLASS_IMBALANCE_FILE_LCH
+>>> 241:             class_weights = tf.constant(np.load(imbalance_fname), dtype=tf.float32)
+    242:             max_indx = tf.argmax(self.output_placeholder, axis=2)
+    243: 
+    244:             weight_vec = tf.gather(params=class_weights, indices=max_indx)",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+yinoue93/CS231N_final_proj,https://github.com/yinoue93/CS231N_final_proj,models.py,247,"    244:             weight_vec = tf.gather(params=class_weights, indices=max_indx)
+    245:             xloss = tf.reshape(xloss, shape=[tf.shape(xloss)[0], int((IMG_DIM)/4)**2])
+    246: 
+>>> 247:             chroma_weights = tf.constant(np.load(CHROMA_MATRIX_FILE), dtype=tf.float32)
+    248:             outPShape = tf.shape(self.output_placeholder)
+    249:             outShape = tf.shape(self.layers['output'])
+    250:             outputP_reshaped = tf.reshape(self.output_placeholder, shape=[outPShape[0]*outPShape[1], outPShape[2]])",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+shlizee/OpticalNN,https://github.com/shlizee/OpticalNN,onn/onn.py,16,"    13: yy = np.load('yy.npy')
+    14: Lambda = np.load('Lambda.npy')
+    15: k_z_values = np.load('k_z_values.npy')
+>>> 16: x_tensor = tf.constant(xx, tf.float32)
+    17: y_tensor = tf.constant(yy, tf.float32)
+    18: Lambda_tensor = tf.constant(Lambda, tf.float32)
+    19: k_z = tf.constant(k_z_values, tf.complex64)",tf.constant(xx) where 'xx' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+shlizee/OpticalNN,https://github.com/shlizee/OpticalNN,onn/onn.py,17,"    14: Lambda = np.load('Lambda.npy')
+    15: k_z_values = np.load('k_z_values.npy')
+    16: x_tensor = tf.constant(xx, tf.float32)
+>>> 17: y_tensor = tf.constant(yy, tf.float32)
+    18: Lambda_tensor = tf.constant(Lambda, tf.float32)
+    19: k_z = tf.constant(k_z_values, tf.complex64)
+    20: f = tf.constant(0.3E-2)",tf.constant(yy) where 'yy' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+shlizee/OpticalNN,https://github.com/shlizee/OpticalNN,onn/onn.py,18,"    15: k_z_values = np.load('k_z_values.npy')
+    16: x_tensor = tf.constant(xx, tf.float32)
+    17: y_tensor = tf.constant(yy, tf.float32)
+>>> 18: Lambda_tensor = tf.constant(Lambda, tf.float32)
+    19: k_z = tf.constant(k_z_values, tf.complex64)
+    20: f = tf.constant(0.3E-2)
+    21: ",tf.constant(Lambda) where 'Lambda' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+shlizee/OpticalNN,https://github.com/shlizee/OpticalNN,onn/onn.py,19,"    16: x_tensor = tf.constant(xx, tf.float32)
+    17: y_tensor = tf.constant(yy, tf.float32)
+    18: Lambda_tensor = tf.constant(Lambda, tf.float32)
+>>> 19: k_z = tf.constant(k_z_values, tf.complex64)
+    20: f = tf.constant(0.3E-2)
+    21: 
+    22: ",tf.constant(k_z_values) where 'k_z_values' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+braun-steven/dfi-tensorflow,https://github.com/braun-steven/dfi-tensorflow,src/DFI.py,168,"    165:         """"""
+    166: 
+    167:         # Init constant tensor
+>>> 168:         phi_z_const_tensor = tf.constant(phi_z, dtype=tf.float32,
+    169:                                          name='phi_x_alpha_w')
+    170: 
+    171:         # Rescale image",tf.constant(phi_z) where 'phi_z' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+kkothari93/fionet,https://github.com/kkothari93/fionet,refl.py,47,"    44:     # load the direct wave on the background
+    45:     # this wave corresponds to the wave reaching the sensor directly
+    46:     # without any reflections.
+>>> 47:     mean_inp = tf.convert_to_tensor(np.load('../data/mean_full_rtm_extend.npy'), tf.float32)
+    48: 
+    49:     step = tf.train.get_or_create_global_step()
+    50: ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+zhongzhh8/Video-classification-with-knowledge-distillation,https://github.com/zhongzhh8/Video-classification-with-knowledge-distillation,eval.py,154,"    151:     offset = np.array([4. / 512] * 1024 + [0] * 128)
+    152:     offset = tf.constant(offset, dtype=tf.float32)
+    153: 
+>>> 154:     eigen_val = tf.constant(np.sqrt(np.load(""yt8m_pca/eigenvals.npy"")[:1024, 0]), dtype=tf.float32)
+    155:     model_input = tf.multiply(model_input_raw - offset, tf.pad(eigen_val + 1e-4, [[0, 128]], constant_values=1.))
+    156: 
+    157:     model_input = model_input[:, 0:300:frame_step, :]",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+psweens/VAN-GAN,https://github.com/psweens/VAN-GAN,dataset.py,156,"    153: 
+    154:             # Load batch of full size images
+    155:             for idx, filename in enumerate(file):
+>>> 156:                 yield tf.convert_to_tensor(np.load(filename), dtype=tf.float32)
+    157: 
+    158:             iter_i += 1
+    159: ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+psweens/VAN-GAN,https://github.com/psweens/VAN-GAN,dataset.py,184,"    181:             for idx, filename in enumerate(file):
+    182:                 if self.semi_supervised:
+    183:                     ss_filename = os.path.join(self.semi_supervised_dir, os.path.basename(filename))
+>>> 184:                     yield tf.convert_to_tensor(np.concatenate((np.load(filename),
+    185:                                                                np.load(ss_filename)),
+    186:                                                               axis=0),
+    187:                                                dtype=tf.float32)",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+psweens/VAN-GAN,https://github.com/psweens/VAN-GAN,dataset.py,189,"    186:                                                               axis=0),
+    187:                                                dtype=tf.float32)
+    188:                 else:
+>>> 189:                     yield tf.convert_to_tensor(np.load(filename), dtype=tf.float32)
+    190: 
+    191:             iter_s += 1
+    192: ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+psweens/VAN-GAN,https://github.com/psweens/VAN-GAN,dataset.py,196,"    193:     def imaging_val_datagen(self):
+    194:         while True:
+    195:             i = random.randint(0, len(self.imaging_paths['validation']) - 1)
+>>> 196:             yield tf.convert_to_tensor(np.load(self.imaging_paths['validation'][i]), dtype=tf.float32), i
+    197: 
+    198:     def segmentation_val_datagen(self):
+    199:         while True:",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+psweens/VAN-GAN,https://github.com/psweens/VAN-GAN,dataset.py,201,"    198:     def segmentation_val_datagen(self):
+    199:         while True:
+    200:             i = random.randint(0, len(self.segmentation_paths['validation']) - 1)
+>>> 201:             yield tf.convert_to_tensor(np.load(self.segmentation_paths['validation'][i]), dtype=tf.float32), i
+    202: 
+    203:     ''' Functions for data preprocessing '''
+    204: ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+kkothari93/fionet,https://github.com/kkothari93/fionet,wprn.py,272,"    269: 
+    270:     data_d1 = transform(np.load(
+    271:         '../HJ_flow/d1_cons_yxi2xeta.npy').astype(np.float32))
+>>> 272:     data_d1_t = tf.convert_to_tensor(data_d1, dtype=tf.float32)
+    273: 
+    274:     data_d2 = transform(np.load(
+    275:         '../HJ_flow/d2_gl_yxi2xeta.npy').astype(np.float32))",tf.convert_to_tensor(data_d1) where 'data_d1' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+kkothari93/fionet,https://github.com/kkothari93/fionet,wprn.py,276,"    273: 
+    274:     data_d2 = transform(np.load(
+    275:         '../HJ_flow/d2_gl_yxi2xeta.npy').astype(np.float32))
+>>> 276:     data_d2_t = tf.convert_to_tensor(data_d2, dtype=tf.float32)
+    277: 
+    278:     bs = 1024
+    279:     dataset = tf.data.Dataset.from_tensor_slices((data_d1_t, data_d2_t))",tf.convert_to_tensor(data_d2) where 'data_d2' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+kkothari93/fionet,https://github.com/kkothari93/fionet,wprn.py,438,"    435:     
+    436:     diffnet = WPRN((128, 128), box_npy, nhidden=32, nlayers=3)
+    437:     data_d1 = np.load('../HJ_flow/d1_full_rtm_ext_gradient_2.npy').astype(np.float32)
+>>> 438:     data_d1_t = tf.convert_to_tensor(data_d1, dtype=tf.float32)
+    439:     
+    440:     bs = 512
+    441:     dataset = tf.data.Dataset.from_tensor_slices(data_d1_t)",tf.convert_to_tensor(data_d1) where 'data_d1' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+kkothari93/fionet,https://github.com/kkothari93/fionet,wprn.py,561,"    558: 
+    559:     data_d1 = np.load(
+    560:         '../HJ_flow/inp_seis_0p4.npy').astype(np.float32)
+>>> 561:     data_d1_t = tf.convert_to_tensor(data_d1, dtype=tf.float32)
+    562: 
+    563:     data_d2 = np.load(
+    564:         '../HJ_flow/out_seis_0p4.npy').astype(np.float32)",tf.convert_to_tensor(data_d1) where 'data_d1' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+kkothari93/fionet,https://github.com/kkothari93/fionet,wprn.py,565,"    562: 
+    563:     data_d2 = np.load(
+    564:         '../HJ_flow/out_seis_0p4.npy').astype(np.float32)
+>>> 565:     data_d2_t = tf.convert_to_tensor(data_d2, dtype=tf.float32)
+    566: 
+    567:     bs = 1024
+    568:     dataset = tf.data.Dataset.from_tensor_slices((data_d1_t, data_d2_t))",tf.convert_to_tensor(data_d2) where 'data_d2' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Ethan-Tseng/Neural_Nano-Optics,https://github.com/Ethan-Tseng/Neural_Nano-Optics,train.py,30,"    27:             assert(psfs_conv_forward.shape[0] == psfs_conv_deconv.shape[0])
+    28:     elif args.psf_mode == 'REAL_PSF':
+    29:         real_psf = np.load(args.real_psf)
+>>> 30:         real_psf = tf.constant(real_psf, dtype=tf.float32)
+    31:         real_psf = tf.image.resize_with_crop_or_pad(real_psf, params['psf_width'], params['psf_width'])
+    32:         real_psf = real_psf / tf.reduce_sum(real_psf, axis=(1,2), keepdims=True)
+    33:         psfs_debug        = real_psf",tf.constant(real_psf) where 'real_psf' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+Ethan-Tseng/Neural_Nano-Optics,https://github.com/Ethan-Tseng/Neural_Nano-Optics,train.py,105,"    102:  
+    103:         elif args.psf_mode == 'REAL_PSF':
+    104:             real_psf = np.load(args.real_psf)
+>>> 105:             real_psf = tf.constant(real_psf, dtype=tf.float32)
+    106:             real_psf = tf.image.resize_with_crop_or_pad(real_psf, params['psf_width'], params['psf_width'])
+    107:             real_psf = real_psf / tf.reduce_sum(real_psf, axis=(1,2), keepdims=True)
+    108:             psfs_debug        = real_psf",tf.constant(real_psf) where 'real_psf' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+chenshen03/DeepHash-tensorflow,https://github.com/chenshen03/DeepHash-tensorflow,model/dvsq.py,92,"    89:             ICM_X_expand = tf.expand_dims(self.ICM_X_residual, 1)  # N * 1 * D
+    90:             ICM_C_m_expand = tf.expand_dims(self.ICM_C_m, 0)  # 1 * M * D
+    91:             # N*sc*D  *  D*n
+>>> 92:             self.wordvec = tf.constant(np.loadtxt(self.wordvec_dict), dtype=tf.float32)
+    93:             ICM_word_dict = tf.reshape(tf.matmul(tf.reshape(
+    94:                         ICM_X_expand - ICM_C_m_expand, [self.code_batch_size * self.subcenter_num, self.output_dim]),
+    95:                     tf.transpose(self.wordvec)), [self.code_batch_size, self.subcenter_num, self.n_class])",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+gffrct/joint-lens-design,https://github.com/gffrct/joint-lens-design,optics_simulator.py,328,"    325:             'ray_angle': ray_angle_weight * loss_multiplier,
+    326:         }
+    327:         # Manage reference glasses
+>>> 328:         ref_glasses = tf.constant(np.loadtxt(glass_catalog_path, delimiter=',', dtype=np.float32))
+    329:         self.catalog_g = tf.reshape(lm.g_from_n_v(*tf.unstack(ref_glasses, axis=1)), (-1, 2))
+    330: 
+    331:         self.initialize()",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+YeeU/InverseRenderNet,https://github.com/YeeU/InverseRenderNet,model/loss_layer.py,28,"    25: 
+    26: 	# reconstruct SH lightings from predicted statistical SH lighting model
+    27: 	lighting_model = '../hdr_illu_pca'
+>>> 28: 	lighting_vectors = tf.constant(np.load(os.path.join(lighting_model,'pcaVector.npy')),dtype=tf.float32)
+    29: 	lighting_means = tf.constant(np.load(os.path.join(lighting_model,'mean.npy')),dtype=tf.float32)
+    30: 	lightings_var = tf.constant(np.load(os.path.join(lighting_model,'pcaVariance.npy')),dtype=tf.float32)
+    31: 	",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+YeeU/InverseRenderNet,https://github.com/YeeU/InverseRenderNet,model/loss_layer.py,29,"    26: 	# reconstruct SH lightings from predicted statistical SH lighting model
+    27: 	lighting_model = '../hdr_illu_pca'
+    28: 	lighting_vectors = tf.constant(np.load(os.path.join(lighting_model,'pcaVector.npy')),dtype=tf.float32)
+>>> 29: 	lighting_means = tf.constant(np.load(os.path.join(lighting_model,'mean.npy')),dtype=tf.float32)
+    30: 	lightings_var = tf.constant(np.load(os.path.join(lighting_model,'pcaVariance.npy')),dtype=tf.float32)
+    31: 	
+    32: 	if preTrain_flag:",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+YeeU/InverseRenderNet,https://github.com/YeeU/InverseRenderNet,model/loss_layer.py,30,"    27: 	lighting_model = '../hdr_illu_pca'
+    28: 	lighting_vectors = tf.constant(np.load(os.path.join(lighting_model,'pcaVector.npy')),dtype=tf.float32)
+    29: 	lighting_means = tf.constant(np.load(os.path.join(lighting_model,'mean.npy')),dtype=tf.float32)
+>>> 30: 	lightings_var = tf.constant(np.load(os.path.join(lighting_model,'pcaVariance.npy')),dtype=tf.float32)
+    31: 	
+    32: 	if preTrain_flag:
+    33: 		lightings = sup_illuDecomp_layer.illuDecomp(inputs,albedos,nm_gt,gamma)",tf.constant() wraps np.load(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+VL-Group/DPQ,https://github.com/VL-Group/DPQ,Encoder_Alex.py,407,"    404:         if self.n_class > 10:
+    405:             if self._multiLabel:
+    406:                 print(NUS_WORD_DICT)
+>>> 407:                 word_dict = tf.constant(np.loadtxt(NUS_WORD_DICT), dtype=tf.float32)
+    408:             else:
+    409:                 print(IMG_WORD_DICT)
+    410:                 word_dict = tf.constant(np.loadtxt(IMG_WORD_DICT), dtype=tf.float32)",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+VL-Group/DPQ,https://github.com/VL-Group/DPQ,Encoder_Alex.py,410,"    407:                 word_dict = tf.constant(np.loadtxt(NUS_WORD_DICT), dtype=tf.float32)
+    408:             else:
+    409:                 print(IMG_WORD_DICT)
+>>> 410:                 word_dict = tf.constant(np.loadtxt(IMG_WORD_DICT), dtype=tf.float32)
+    411:         else:
+    412:             print(CIFAR_WORD_DICT)
+    413:             word_dict = tf.constant(np.loadtxt(CIFAR_WORD_DICT), dtype=tf.float32)",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+VL-Group/DPQ,https://github.com/VL-Group/DPQ,Encoder_Alex.py,413,"    410:                 word_dict = tf.constant(np.loadtxt(IMG_WORD_DICT), dtype=tf.float32)
+    411:         else:
+    412:             print(CIFAR_WORD_DICT)
+>>> 413:             word_dict = tf.constant(np.loadtxt(CIFAR_WORD_DICT), dtype=tf.float32)
+    414: 
+    415: 
+    416:         if self.loss_type == 'cos_margin_multi_label':",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+spyflying/CMPC-Refseg,https://github.com/spyflying/CMPC-Refseg,CMPC_video/CMPC_video_mm_tgraph_allvec.py,83,"    80:         # GloVe Embedding
+    81:         glove_np = np.load('data/{}_emb.npy'.format(self.emb_name))
+    82:         print(""Loading embedding npy at data/{}_emb.npy"".format(self.emb_name))
+>>> 83:         self.glove = tf.convert_to_tensor(glove_np, tf.float32)  # [vocab_size, 300]
+    84: 
+    85:         with tf.variable_scope(""text_objseg""):
+    86:             self.build_graph()",tf.convert_to_tensor(glove_np) where 'glove_np' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+LEON-REIN/channel_estimation,https://github.com/LEON-REIN/channel_estimation,CENet-V2.6.py,68,"    65: data_to_train = data_to_train.window(64).flat_map(flat_batch)
+    66: # (10000, 256)
+    67: labels_to_train = tf.data.Dataset.from_tensor_slices(
+>>> 68:     tf.constant(labels_to_train, dtype=tf.float32)
+    69: )
+    70: to_train = tf.data.Dataset.zip((data_to_train, labels_to_train)) \
+    71:     .batch(BATCH_SIZE) \",tf.constant(labels_to_train) where 'labels_to_train' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+LEON-REIN/channel_estimation,https://github.com/LEON-REIN/channel_estimation,CENet-V2.6.py,85,"    82: data_to_test = data_to_test.window(64).flat_map(flat_batch)
+    83: # (1000, 256)
+    84: labels_to_test = tf.data.Dataset.from_tensor_slices(
+>>> 85:     tf.constant(labels_to_test, dtype=tf.float32)
+    86: )
+    87: to_test = tf.data.Dataset.zip((data_to_test, labels_to_test)) \
+    88:     .batch(BATCH_SIZE) \",tf.constant(labels_to_test) where 'labels_to_test' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+Muzhou-Ma/LOCC-VQE,https://github.com/Muzhou-Ma/LOCC-VQE,"Perturbed rotated surface code/Nx=6,Ny=2/LOCC-VQE_RSC_QMI_X.py",339,"    336: 
+    337: def batched_train_step_tf(batch, h, input_param):    
+    338:     param = tf.Variable(
+>>> 339:             initial_value=tf.convert_to_tensor(input_param, dtype=getattr(tf, tc.rdtypestr))
+    340:         )
+    341:     
+    342:     energy, qmi = vqe_vmap(param, h)",tf.convert_to_tensor(input_param) where 'input_param' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+cryoem/eman2,https://github.com/cryoem/eman2,programs/e2gmm_refine.py,980,"    977: 	#### Align particles using GMM
+    978: 	##   have not upgraded this part yet. probably still bugs left
+    979: 	if options.ptclsin and options.align:
+>>> 980: 		pts=tf.constant(pts)
+    981: 		print(""Align particles..."")
+    982: 		if options.fromscratch:
+    983: 			set_indices_boxsz(32)",tf.constant(pts) where 'pts' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+val-iisc/GD-UAP,https://github.com/val-iisc/GD-UAP,classification/evaluate.py,59,"    56:         print(pert_load.shape[1])
+    57:         raise Exception(""Invalid size of input perturbation"")
+    58: 
+>>> 59:     adv_image = tf.constant(pert_load, dtype='float32')
+    60:     # placeholder to pass image
+    61:     input_image = tf.placeholder(
+    62:         shape=[None, size, size, 3], dtype='float32', name='input_image')",tf.constant(pert_load) where 'pert_load' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+alpv95/Dank-Learning,https://github.com/alpv95/Dank-Learning,im2txt/show_and_tell_model.py,67,"    64:         minval=-self.config.initializer_scale,
+    65:         maxval=self.config.initializer_scale)
+    66: 
+>>> 67:     self.pretrained_glove = tf.constant(np.loadtxt('REAL_EMBEDDING_MATRIX',dtype=np.float32))
+    68: 
+    69:     # A float32 Tensor with shape [batch_size, height, width, channels].
+    70:     self.images = None",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+wangheda/youtube-8m,https://github.com/wangheda/youtube-8m,youtube-8m-zhangteng/losses.py,285,"    282:       float_labels = tf.cast(labels, tf.float32)
+    283:       if FLAGS.support_type==""class"":
+    284:         seq = np.loadtxt(FLAGS.class_file)
+>>> 285:         tf_seq = tf.one_hot(tf.constant(seq,dtype=tf.int32),FLAGS.encoder_size)
+    286:         float_classes_org = tf.matmul(float_labels,tf_seq)
+    287:         class_true = tf.ones(tf.shape(float_classes_org))
+    288:         class_false = tf.zeros(tf.shape(float_classes_org))",tf.constant(seq) where 'seq' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+VL-Group/DPQ,https://github.com/VL-Group/DPQ,Encoder_VGG.py,261,"    258:         if self.loss_type == 'cos_margin_multi_label':
+    259:             # apply L = sum(sum(max(0, delta - cos1 + cos2)))
+    260:             # equation (1) in paper
+>>> 261:             word_dict = tf.constant(np.loadtxt(NUS_WORD_DICT if self.n_class>10 else CIFAR_WORD_DICT), dtype=tf.float32)
+    262: 
+    263:             # hard margin just set delta = constant
+    264:             margin_param = tf.constant(self._margin, dtype=tf.float32)",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+VL-Group/DPQ,https://github.com/VL-Group/DPQ,Encoder_VGG.py,316,"    313:             self.cos_loss = tf.div(cos_loss, tf.multiply(tf.constant(self.n_class, dtype=tf.float32), tf.reduce_sum(label)))
+    314: 
+    315:         elif self.loss_type == 'cos_softmargin_multi_label':
+>>> 316:             word_dict = tf.constant(np.loadtxt(NUS_WORD_DICT if self.n_class>10 else CIFAR_WORD_DICT), dtype=tf.float32)
+    317:             # margin_param = tf.constant(self._margin, dtype=tf.float32)
+    318: 
+    319:             # N: batchsize, L: label_dim, D: 300",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+wuhao5688/RNN-TrajModel,https://github.com/wuhao5688/RNN-TrajModel,trajmodel.py,108,"    105:       # construct embeddings
+    106:       if config.pretrained_input_emb_path != '': # load pretrained embeddings (such as word2vec)
+    107:         pretrained_emb = np.loadtxt(config.pretrained_input_emb_path, delimiter=',')
+>>> 108:         pretrained_emb_ = tf.constant(pretrained_emb, config.float_type)
+    109:         emb_ = tf.get_variable(""embedding"", dtype=config.float_type, initializer=pretrained_emb_)
+    110:         print(""init emb by pretraining."")
+    111:       else:",tf.constant(pretrained_emb) where 'pretrained_emb' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+KTH-FlowAI/FCN-turbulence-predictions-from-wall-quantities,https://github.com/KTH-FlowAI/FCN-turbulence-predictions-from-wall-quantities,src/tfrecord_utils.py,432,"    429:     # Loading the mean profile and the fluctuations intensity if needed
+    430:     if pred_fluct == True:
+    431:         print('The model outputs are the velocity fluctuations')
+>>> 432:         avgs = tf.reshape(tf.constant(np.loadtxt(avg_path+'mean_'+
+    433:                 app.VARS_NAME_OUT[0]+'.m').astype(np.float32)[:,1]),(1,-1))
+    434:         for i in range(1,app.N_VARS_OUT):
+    435:             avgs = tf.concat((avgs, tf.reshape(tf.constant(",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+KTH-FlowAI/FCN-turbulence-predictions-from-wall-quantities,https://github.com/KTH-FlowAI/FCN-turbulence-predictions-from-wall-quantities,src/tfrecord_utils.py,456,"    453:     if scale_output == True:
+    454:         print('The outputs are scaled with the ratio of the RMS values, ',
+    455:               'taking the first input as reference')
+>>> 456:         rms = tf.reshape(tf.constant(np.loadtxt(avg_path+
+    457:                 app.VARS_NAME_OUT[0]+'_rms.m')[:,1]),(1,-1))
+    458:         for i in range(1,app.N_VARS_OUT):
+    459:             rms = tf.concat((rms, tf.reshape(tf.constant(",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+zlthinker/KFNet,https://github.com/zlthinker/KFNet,KFNet/train.py,58,"    55:                               [0.0, 1.0, 0.0, 0.0],
+    56:                               [0.0, 0.0, 1.0, 0.0],
+    57:                               [0.0, 0.0, 0.0, 1.0]])
+>>> 58:     return tf.constant(transform)
+    59: 
+    60: def get_indexes(is_training):
+    61:     def _get_groups_in_range(start, end):",tf.constant(transform) where 'transform' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+anapt/3D-facial-reconstruction,https://github.com/anapt/3D-facial-reconstruction,ExpressionRecognitionNetwork.py,130,"    127:         :return:
+    128:         """"""
+    129:         vector = np.loadtxt(vector_path)
+>>> 130:         vector = tf.transpose(tf.constant(vector))
+    131:         # vector = np.transpose(vector)
+    132:         vector = tf.reshape(vector, shape=[1, self.expression_dim])
+    133:         x = self.model.predict(vector)",tf.constant(vector) where 'vector' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+anapt/3D-facial-reconstruction,https://github.com/anapt/3D-facial-reconstruction,ExpressionRecognitionNetwork.py,144,"    141:         :return:
+    142:         """"""
+    143:         self.load_model()
+>>> 144:         vector = tf.transpose(tf.constant(vector))
+    145:         vector = tf.reshape(vector, shape=[1, self.expression_dim])
+    146:         x = self.model.predict(vector)
+    147: ",tf.constant(vector) where 'vector' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+antkillerfarm/antkillerfarm_crazy,https://github.com/antkillerfarm/antkillerfarm_crazy,python/ml/numpy/quantize_tensor.py,17,"    14: n2 = np.around(n1 / scale + zp)
+    15: np.savetxt(path + f2[0], n2.astype(np.uint8), fmt='%d')
+    16: 
+>>> 17: a = tf.constant(n1, dtype = tf.float32)
+    18: b = tf.keras.activations.hard_sigmoid(a)
+    19: n3 = b.numpy()
+    20: ",tf.constant(n1) where 'n1' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+chenshen03/DeepHash-tensorflow,https://github.com/chenshen03/DeepHash-tensorflow,model/dhcs.py,65,"    62:             self.img = tf.placeholder(tf.float32, [None, 256, 256, 3])
+    63:             self.img_label = tf.placeholder(tf.float32, [None, self.n_class])
+    64:             try:
+>>> 65:                 self.wordvec = tf.constant(np.loadtxt(self.wordvec_dict), dtype=tf.float32)
+    66:             except:
+    67:                 print(f'{self.wordvec_dict} does not exist!')
+    68:                 self.wordvec = None",tf.constant() wraps np.loadtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+xbresson/CE7454_2018,https://github.com/xbresson/CE7454_2018,projects/project04/Notebook/Network/resnet.py,44,"    41:         # mu_tex = np.load(""data/mu_tex_.npy"")
+    42:         key_index = np.loadtxt('data/keyindex.txt', dtype=np.int).tolist()
+    43: 
+>>> 44:         self.mu_exp = tf.constant(mu_exp,shape=[1, 3 * 53215],dtype = tf.float32)
+    45:         self.b_exp = tf.constant(b_exp, shape=[79, 3 * 53215],dtype = tf.float32)
+    46:         self.b_shape = tf.constant(b_shape, shape=[100, 3 * 53215],dtype = tf.float32)
+    47:         self.mu_shape = tf.constant(mu_shape,shape=[1, 3 * 53215],dtype = tf.float32)",tf.constant(mu_exp) where 'mu_exp' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+xbresson/CE7454_2018,https://github.com/xbresson/CE7454_2018,projects/project04/Notebook/Network/resnet.py,45,"    42:         key_index = np.loadtxt('data/keyindex.txt', dtype=np.int).tolist()
+    43: 
+    44:         self.mu_exp = tf.constant(mu_exp,shape=[1, 3 * 53215],dtype = tf.float32)
+>>> 45:         self.b_exp = tf.constant(b_exp, shape=[79, 3 * 53215],dtype = tf.float32)
+    46:         self.b_shape = tf.constant(b_shape, shape=[100, 3 * 53215],dtype = tf.float32)
+    47:         self.mu_shape = tf.constant(mu_shape,shape=[1, 3 * 53215],dtype = tf.float32)
+    48:         self.label_mean =tf.constant(label_mean,shape=[1,185],dtype = tf.float32)",tf.constant(b_exp) where 'b_exp' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+xbresson/CE7454_2018,https://github.com/xbresson/CE7454_2018,projects/project04/Notebook/Network/resnet.py,46,"    43: 
+    44:         self.mu_exp = tf.constant(mu_exp,shape=[1, 3 * 53215],dtype = tf.float32)
+    45:         self.b_exp = tf.constant(b_exp, shape=[79, 3 * 53215],dtype = tf.float32)
+>>> 46:         self.b_shape = tf.constant(b_shape, shape=[100, 3 * 53215],dtype = tf.float32)
+    47:         self.mu_shape = tf.constant(mu_shape,shape=[1, 3 * 53215],dtype = tf.float32)
+    48:         self.label_mean =tf.constant(label_mean,shape=[1,185],dtype = tf.float32)
+    49:         self.label_std = tf.constant(label_std, shape=[1,185],  dtype=tf.float32)",tf.constant(b_shape) where 'b_shape' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+xbresson/CE7454_2018,https://github.com/xbresson/CE7454_2018,projects/project04/Notebook/Network/resnet.py,47,"    44:         self.mu_exp = tf.constant(mu_exp,shape=[1, 3 * 53215],dtype = tf.float32)
+    45:         self.b_exp = tf.constant(b_exp, shape=[79, 3 * 53215],dtype = tf.float32)
+    46:         self.b_shape = tf.constant(b_shape, shape=[100, 3 * 53215],dtype = tf.float32)
+>>> 47:         self.mu_shape = tf.constant(mu_shape,shape=[1, 3 * 53215],dtype = tf.float32)
+    48:         self.label_mean =tf.constant(label_mean,shape=[1,185],dtype = tf.float32)
+    49:         self.label_std = tf.constant(label_std, shape=[1,185],  dtype=tf.float32)
+    50:     def build_tower(self, images, shapes,exps,eulars,ts,ss):",tf.constant(mu_shape) where 'mu_shape' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+xbresson/CE7454_2018,https://github.com/xbresson/CE7454_2018,projects/project04/Notebook/Network/resnet.py,48,"    45:         self.b_exp = tf.constant(b_exp, shape=[79, 3 * 53215],dtype = tf.float32)
+    46:         self.b_shape = tf.constant(b_shape, shape=[100, 3 * 53215],dtype = tf.float32)
+    47:         self.mu_shape = tf.constant(mu_shape,shape=[1, 3 * 53215],dtype = tf.float32)
+>>> 48:         self.label_mean =tf.constant(label_mean,shape=[1,185],dtype = tf.float32)
+    49:         self.label_std = tf.constant(label_std, shape=[1,185],  dtype=tf.float32)
+    50:     def build_tower(self, images, shapes,exps,eulars,ts,ss):
+    51:         print('Building model')",tf.constant(label_mean) where 'label_mean' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+xbresson/CE7454_2018,https://github.com/xbresson/CE7454_2018,projects/project04/Notebook/Network/resnet.py,49,"    46:         self.b_shape = tf.constant(b_shape, shape=[100, 3 * 53215],dtype = tf.float32)
+    47:         self.mu_shape = tf.constant(mu_shape,shape=[1, 3 * 53215],dtype = tf.float32)
+    48:         self.label_mean =tf.constant(label_mean,shape=[1,185],dtype = tf.float32)
+>>> 49:         self.label_std = tf.constant(label_std, shape=[1,185],  dtype=tf.float32)
+    50:     def build_tower(self, images, shapes,exps,eulars,ts,ss):
+    51:         print('Building model')
+    52: ",tf.constant(label_std) where 'label_std' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+cryoem/eman2,https://github.com/cryoem/eman2,programs/e2gmm_spt_subtlt.py,80,"    77: 	print(""Gaussian model shape: "", pts.shape)
+    78: 
+    79: 	##   turn model to tensorflow format
+>>> 80: 	pts=tf.constant(pts)
+    81: 
+    82: 	#### load the alignment from spt refinement
+    83: 	alipm=load_lst_params(options.ptclsin)",tf.constant(pts) where 'pts' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+wangheda/youtube-8m,https://github.com/wangheda/youtube-8m,youtube-8m-zhangteng/video_level_models.py,1197,"    1194: 
+    1195:         if FLAGS.moe_method==""ordered"":
+    1196:             seq = np.loadtxt(""labels_ordered.out"")
+>>> 1197:             tf_seq = tf.constant(seq,dtype=tf.int32)
+    1198:             final_probabilities = tf.gather(tf.transpose(final_probabilities),tf_seq)
+    1199:             final_probabilities = tf.transpose(final_probabilities)
+    1200:         elif FLAGS.moe_method==""unordered"":",tf.constant(seq) where 'seq' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+wangheda/youtube-8m,https://github.com/wangheda/youtube-8m,youtube-8m-zhangteng/video_level_models.py,1202,"    1199:             final_probabilities = tf.transpose(final_probabilities)
+    1200:         elif FLAGS.moe_method==""unordered"":
+    1201:             seq = np.loadtxt(""labels_unordered.out"")
+>>> 1202:             tf_seq = tf.constant(seq,dtype=tf.int32)
+    1203:             final_probabilities = tf.gather(tf.transpose(final_probabilities),tf_seq)
+    1204:             final_probabilities = tf.transpose(final_probabilities)
+    1205: ",tf.constant(seq) where 'seq' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+wangheda/youtube-8m,https://github.com/wangheda/youtube-8m,youtube-8m-zhangteng/video_level_models.py,1363,"    1360:         shape = model_input.get_shape().as_list()[1]
+    1361: 
+    1362:         seq = np.loadtxt(FLAGS.class_file)
+>>> 1363:         tf_seq = tf.constant(seq,dtype=tf.float32)
+    1364: 
+    1365:         gate_activations = slim.fully_connected(
+    1366:             model_input,",tf.constant(seq) where 'seq' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+cryoem/eman2,https://github.com/cryoem/eman2,programs/e2gmm_refine_point.py,256,"    253: 	#### Align particles using GMM
+    254: 	##   have not upgraded this part yet. probably still bugs left
+    255: 	if options.ptclsin and options.align:
+>>> 256: 		pts=tf.constant(pts)
+    257: 		print(""Align particles..."")
+    258: 		if options.fromscratch:
+    259: 			set_indices_boxsz(32)",tf.constant(pts) where 'pts' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+YichengWu/PhaseCam3D,https://github.com/YichengWu/PhaseCam3D,depth_estimation_test.py,206,"    203: hh = np.loadtxt(results_dir + 'HeightMap.txt')
+    204: 
+    205: with tf.variable_scope(""PSFs""):
+>>> 206:     h = tf.constant(hh,tf.float32, name='heightMap')  # height map of the phase mask, should be all positive
+    207:     PSFs = gen_PSFs(h, OOFphase, wvls, idx, N_R, N_G, N_B)  # return (N_Phi, N_B, N_B, N_color)
+    208: 
+    209: batch_size = 40",tf.constant(hh) where 'hh' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+cryoem/eman2,https://github.com/cryoem/eman2,programs/e2gmm_spt_align.py,91,"    88: 		pts[:,4]=pts[:,4]*imsk
+    89: 		
+    90: 	##   turn model to tensorflow format
+>>> 91: 	pts=tf.constant(pts)
+    92: 
+    93: 	#### load the alignment from spt refinement
+    94: 	##   make sure we have only one conformation for multiple 2D particles that correspond to one 3D particle",tf.constant(pts) where 'pts' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+GitHubLuCheng/Causal-Understanding-of-Fake-News-Dissemination,https://github.com/GitHubLuCheng/Causal-Understanding-of-Fake-News-Dissemination,BPRMF_neural.py,89,"    86:         users[:,1:6] = normalize(users[:,1:6], axis=0)
+    87:         user_weights = tf.Variable(initializer([users.shape[1], self.emb_dim]),
+    88:                                    name='user_pscore_weights')
+>>> 89:         map_user = tf.matmul(tf.constant(users, dtype=tf.float32), user_weights,
+    90:                                                   name='user_pscore')
+    91:         #all_weights['user_embedding']=tf.sigmoid(map_user)
+    92: ",tf.constant(users) where 'users' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+GitHubLuCheng/Causal-Understanding-of-Fake-News-Dissemination,https://github.com/GitHubLuCheng/Causal-Understanding-of-Fake-News-Dissemination,BPRMF_neural.py,95,"    92: 
+    93:         item_weights = tf.Variable(initializer([items.shape[1], self.emb_dim]),
+    94:                                    name='item_pscore_weights')
+>>> 95:         map_item = tf.matmul(tf.constant(items, dtype=tf.float32), item_weights,
+    96:                                                   name='item_pscore')
+    97:         # all_weights['item_embedding']=tf.sigmoid(map_item)
+    98:         return all_weights, map_user, map_item",tf.constant(items) where 'items' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+dalab/web2text,https://github.com/dalab/web2text,src/main/python/main.py,251,"    248:   block_features = block_features.T[np.newaxis, :, np.newaxis, :].astype(np.float32)
+    249:   edge_features = edge_features.T[np.newaxis, :, np.newaxis, :].astype(np.float32)
+    250: 
+>>> 251:   unary_features = tf.constant(block_features)
+    252:   edge_features  = tf.constant(edge_features)
+    253: 
+    254:   unary_logits = unary(unary_features, is_training=False)",tf.constant(block_features) where 'block_features' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+dalab/web2text,https://github.com/dalab/web2text,src/main/python/main.py,252,"    249:   edge_features = edge_features.T[np.newaxis, :, np.newaxis, :].astype(np.float32)
+    250: 
+    251:   unary_features = tf.constant(block_features)
+>>> 252:   edge_features  = tf.constant(edge_features)
+    253: 
+    254:   unary_logits = unary(unary_features, is_training=False)
+    255:   edge_logits  = edge(edge_features, is_training=False)",tf.constant(edge_features) where 'edge_features' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+kyzhouhzau/NLPGNN,https://github.com/kyzhouhzau/NLPGNN,nlpgnn/datas/graphloader.py,308,"    305:         self.edge_norm = tf.ones(edge_type.shape)
+    306: 
+    307:         self.samples = tf.constant(samples)
+>>> 308:         self.labels = tf.constant(labels)
+    309: 
+    310: 
+    311: class Planetoid:",tf.constant(labels) where 'labels' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+yaroslavvb/stuff,https://github.com/yaroslavvb/stuff,rotations_comparison.py,393,"    390: 
+    391:   # Create W's
+    392:   W = u.unflatten(Wf, fs[1:])
+>>> 393:   X = tf.constant(X0)
+    394:   Y = tf.constant(Y0)
+    395:   W.insert(0, X)
+    396:   for (numpy_W, tf_W) in zip(W0s, W):",tf.constant(X0) where 'X0' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+yaroslavvb/stuff,https://github.com/yaroslavvb/stuff,rotations_comparison.py,394,"    391:   # Create W's
+    392:   W = u.unflatten(Wf, fs[1:])
+    393:   X = tf.constant(X0)
+>>> 394:   Y = tf.constant(Y0)
+    395:   W.insert(0, X)
+    396:   for (numpy_W, tf_W) in zip(W0s, W):
+    397:     u.check_equal(numpy_W.shape, u.fix_shape(tf_W.shape))",tf.constant(Y0) where 'Y0' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+damslab/reproducibility,https://github.com/damslab/reproducibility,sigmod2023-AWARE-p5/experiments/code/MM/tf/vm.py,16,"    13: args = parser.parse_args()
+    14: 
+    15: 
+>>> 16: matrix = tf.constant(np.genfromtxt(args.data, delimiter="",""))
+    17: vector = tf.constant(np.random.random_sample((matrix.shape[1], 1)))
+    18: 
+    19: # print(dfv)",tf.constant() wraps np.genfromtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+damslab/reproducibility,https://github.com/damslab/reproducibility,sigmod2023-AWARE-p5/experiments/code/MM/tf/mv.py,16,"    13: parser.add_argument(""--data"", type=str, help=""The filepath to csv file input"")
+    14: args = parser.parse_args()
+    15: 
+>>> 16: matrix = tf.constant(np.genfromtxt(args.data, delimiter="",""))
+    17: vector = tf.constant(np.random.random_sample((1, matrix.shape[0])))
+    18: 
+    19: # print(dfv)",tf.constant() wraps np.genfromtxt(). Entire file contents embedded into graph as a constant permanently. Use tf.data.Dataset or tf.placeholder instead.
+JonathonLuiten/PReMVOS,https://github.com/JonathonLuiten/PReMVOS,code/ReID_net/scripts/test_load_pairs.py,9,"    6: 
+    7:   image_list = np.genfromtxt('/fastwork/luiten/mywork/data/CUHK03/number_of_images.csv', delimiter=',')
+    8:   image_list = image_list.astype(np.int32)
+>>> 9:   num_images = tf.constant(image_list)
+    10: 
+    11:   rand = tf.random_uniform([7], maxval=tf.int32.max, dtype=tf.int32)
+    12:   sample_same_person = rand[0] % 2",tf.constant(image_list) where 'image_list' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+ZP1481616577/Baselines_LSR-IGRU,https://github.com/ZP1481616577/Baselines_LSR-IGRU,LSR-IGRU/main_model_sp500.py,1185,"    1182: 
+    1183:         x_train = tf.constant(X_train, dtype=tf.float32)
+    1184:         y_train = tf.constant(Y_train, dtype=tf.float32)
+>>> 1185:         x_train_matrx = tf.constant(matrx_1, dtype=tf.float32)
+    1186: 
+    1187:         for model_num in range(self.number_of_models[0], self.number_of_models[-1]):
+    1188:             print(""###"" + str(""2022-12-31"") + ""###model_num="" + str(model_num))",tf.constant(matrx_1) where 'matrx_1' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+ZP1481616577/Baselines_LSR-IGRU,https://github.com/ZP1481616577/Baselines_LSR-IGRU,LSR-IGRU/main_model_sp500.py,1251,"    1248:                 self.construct_pred_data()
+    1249:             )
+    1250:             x_pred = tf.constant(X_pred, dtype=tf.float32)
+>>> 1251:             x_pred_matrx = tf.constant(matrx_1, dtype=tf.float32)
+    1252: 
+    1253:             N = len(stock_choose)
+    1254:             F = len(self.feature_cols)",tf.constant(matrx_1) where 'matrx_1' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+damslab/reproducibility,https://github.com/damslab/reproducibility,sigmod2023-AWARE-p5/experiments/code/tensorflow/LinearRegressionGraphSparseFP32.py,39,"    36:     else:
+    37:         df = pd.read_csv(path, header=None)
+    38: 
+>>> 39:     data = tf.convert_to_tensor(df, dtype=np.float32)
+    40:     return data
+    41: 
+    42: ",tf.convert_to_tensor(df) where 'df' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,https://github.com/sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,unpaired_methods/3-MMD-MA/demos/manifoldAlignDistortionPen_mmd_multipleStarts_1469.py,144,"    141: record = open('loss_1469.txt', 'w')
+    142: n1 = k1_matrix.shape[0]
+    143: n2 = k2_matrix.shape[0]
+>>> 144: K1 = tf.constant(k1_matrix, dtype=tf.float32)
+    145: K2 = tf.constant(k2_matrix, dtype=tf.float32)
+    146: alpha = tf.Variable(tf.random_uniform([n1,p],minval=0.0,maxval=0.1,seed=k))
+    147: beta = tf.Variable(tf.random_uniform([n2,p],minval=0.0,maxval=0.1,seed=k))",tf.constant(k1_matrix) where 'k1_matrix' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,https://github.com/sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,unpaired_methods/3-MMD-MA/demos/manifoldAlignDistortionPen_mmd_multipleStarts_1469.py,145,"    142: n1 = k1_matrix.shape[0]
+    143: n2 = k2_matrix.shape[0]
+    144: K1 = tf.constant(k1_matrix, dtype=tf.float32)
+>>> 145: K2 = tf.constant(k2_matrix, dtype=tf.float32)
+    146: alpha = tf.Variable(tf.random_uniform([n1,p],minval=0.0,maxval=0.1,seed=k))
+    147: beta = tf.Variable(tf.random_uniform([n2,p],minval=0.0,maxval=0.1,seed=k))
+    148: ",tf.constant(k2_matrix) where 'k2_matrix' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+ZP1481616577/Baselines_LSR-IGRU,https://github.com/ZP1481616577/Baselines_LSR-IGRU,LSR-IGRU/main_model_csi300.py,2592,"    2589: 
+    2590:         x_train = tf.constant(X_train, dtype=tf.float32)
+    2591:         y_train = tf.constant(Y_train, dtype=tf.float32)
+>>> 2592:         x_train_matrx = tf.constant(matrx_1, dtype=tf.float32)
+    2593: 
+    2594:         for model_num in range(self.number_of_models[0], self.number_of_models[-1]):
+    2595:             print(""###"" + str(""2022-12-31"") + ""###model_num="" + str(model_num))",tf.constant(matrx_1) where 'matrx_1' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+ZP1481616577/Baselines_LSR-IGRU,https://github.com/ZP1481616577/Baselines_LSR-IGRU,LSR-IGRU/main_model_csi300.py,2658,"    2655:                 self.construct_pred_data()
+    2656:             )
+    2657:             x_pred = tf.constant(X_pred, dtype=tf.float32)
+>>> 2658:             x_pred_matrx = tf.constant(matrx_1, dtype=tf.float32)
+    2659: 
+    2660:             N = len(stock_choose)
+    2661:             F = len(self.feature_cols)",tf.constant(matrx_1) where 'matrx_1' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,https://github.com/sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,unpaired_methods/3-MMD-MA/demos/.ipynb_checkpoints/manifoldAlignDistortionPen_mmd_multipleStarts_1469-checkpoint.py,144,"    141: record = open('loss_1469.txt', 'w')
+    142: n1 = k1_matrix.shape[0]
+    143: n2 = k2_matrix.shape[0]
+>>> 144: K1 = tf.constant(k1_matrix, dtype=tf.float32)
+    145: K2 = tf.constant(k2_matrix, dtype=tf.float32)
+    146: alpha = tf.Variable(tf.random_uniform([n1,p],minval=0.0,maxval=0.1,seed=k))
+    147: beta = tf.Variable(tf.random_uniform([n2,p],minval=0.0,maxval=0.1,seed=k))",tf.constant(k1_matrix) where 'k1_matrix' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,https://github.com/sunnsset/Benchmarking_single-cell_RNA_and_ATAC_data_integration,unpaired_methods/3-MMD-MA/demos/.ipynb_checkpoints/manifoldAlignDistortionPen_mmd_multipleStarts_1469-checkpoint.py,145,"    142: n1 = k1_matrix.shape[0]
+    143: n2 = k2_matrix.shape[0]
+    144: K1 = tf.constant(k1_matrix, dtype=tf.float32)
+>>> 145: K2 = tf.constant(k2_matrix, dtype=tf.float32)
+    146: alpha = tf.Variable(tf.random_uniform([n1,p],minval=0.0,maxval=0.1,seed=k))
+    147: beta = tf.Variable(tf.random_uniform([n2,p],minval=0.0,maxval=0.1,seed=k))
+    148: ",tf.constant(k2_matrix) where 'k2_matrix' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+WuChenshen/MeRGAN,https://github.com/WuChenshen/MeRGAN,mergan.py,182,"    179:         disc_acgan_fake_acc = tf.add_n(disc_acgan_fake_accs) / len(DEVICES)
+    180: 
+    181:     _fixed_noise = pickle.load(open('/datatmp/result/fixed_noise/fixed_noise','r'))
+>>> 182:     fixed_noise_one = tf.constant(_fixed_noise)
+    183:     fixed_noise_samples = []
+    184:     for i in range(NUM_CLASS):
+    185:         fixed_labels_one = tf.constant(np.ones(100,dtype='int32')*i)",tf.constant(_fixed_noise) where '_fixed_noise' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+tcl9876/Denoising_Student,https://github.com/tcl9876/Denoising_Student,training.py,28,"    25:         X = np.load(os.path.join(datadir, 'x_train_%d.npy' % shardnum))
+    26:         Y = np.load(os.path.join(datadir, 'y_train_%d.npy' % shardnum))
+    27: 
+>>> 28:     xtensor = tf.constant(X)
+    29:     ytensor = tf.constant(Y)
+    30: 
+    31:     del X",tf.constant(X) where 'X' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+tcl9876/Denoising_Student,https://github.com/tcl9876/Denoising_Student,training.py,29,"    26:         Y = np.load(os.path.join(datadir, 'y_train_%d.npy' % shardnum))
+    27: 
+    28:     xtensor = tf.constant(X)
+>>> 29:     ytensor = tf.constant(Y)
+    30: 
+    31:     del X
+    32:     del Y",tf.constant(Y) where 'Y' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+sciforce/phones-las,https://github.com/sciforce/phones-las,utils/vocab_utils.py,41,"    38:     vocab_list = load_vocab(filename)
+    39: 
+    40:     return tf.contrib.lookup.index_table_from_tensor(
+>>> 41:         tf.constant(vocab_list), num_oov_buckets=0, default_value=UNK_ID)
+    42: ",tf.constant(vocab_list) where 'vocab_list' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+avalonstrel/GatedConvolution,https://github.com/avalonstrel/GatedConvolution,inpaint_ops.py,565,"    562:     logger.info('Size of imageB: {}'.format(f.shape))
+    563: 
+    564:     with tf.Session() as sess:
+>>> 565:         bt = tf.constant(b, dtype=tf.float32)
+    566:         ft = tf.constant(f, dtype=tf.float32)
+    567: 
+    568:         yt, flow = contextual_attention(",tf.constant(b) where 'b' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+avalonstrel/GatedConvolution,https://github.com/avalonstrel/GatedConvolution,inpaint_ops.py,566,"    563: 
+    564:     with tf.Session() as sess:
+    565:         bt = tf.constant(b, dtype=tf.float32)
+>>> 566:         ft = tf.constant(f, dtype=tf.float32)
+    567: 
+    568:         yt, flow = contextual_attention(
+    569:             ft, bt, stride=stride, rate=rate,",tf.constant(f) where 'f' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+NoAchache/TextBoxGAN,https://github.com/NoAchache/TextBoxGAN,dataset_utils/filter_out_bad_images.py,46,"    43:                     image, (cfg.aster_image_dims[1], cfg.aster_image_dims[0])
+    44:                 )
+    45:                 image = image.astype(np.float32) / 127.5 - 1.0
+>>> 46:                 image = tf.expand_dims(tf.constant(image), 0)
+    47: 
+    48:                 ocr_label_array = tf.constant(string_to_aster_int_sequence([word]))
+    49: ",tf.constant(image) where 'image' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+zhuhong1996/AI-Guardian,https://github.com/zhuhong1996/AI-Guardian,VGG-Face/test_performance.py,267,"    264:     mask = mask.astype(np.float32)
+    265:     trigger = trigger.astype(np.float32)
+    266:     
+>>> 267:     initial = tf.constant(mask, shape=mask.shape)
+    268:     mask = tf.Variable(initial,name=""mask"")
+    269:     initial = tf.constant(trigger, shape=trigger.shape)
+    270:     trigger = tf.Variable(initial,name=""trigger"")",tf.constant(mask) where 'mask' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+zhuhong1996/AI-Guardian,https://github.com/zhuhong1996/AI-Guardian,VGG-Face/test_performance.py,269,"    266:     
+    267:     initial = tf.constant(mask, shape=mask.shape)
+    268:     mask = tf.Variable(initial,name=""mask"")
+>>> 269:     initial = tf.constant(trigger, shape=trigger.shape)
+    270:     trigger = tf.Variable(initial,name=""trigger"")
+    271:         
+    272:     # Create placeholders nodes for images",tf.constant(trigger) where 'trigger' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+buyizhiyou/NRVQA,https://github.com/buyizhiyou/NRVQA,DIQA/predict_img.py,70,"    67: infer = subjective_error_model.signatures['serving_default']
+    68: frame = cv2.imread(imgpath)
+    69: frame = np.expand_dims(frame, axis=0)
+>>> 70: im = tf.constant(frame)
+    71: im = image_preprocess(im)
+    72: out = infer(im)
+    73: value = out['dense_1'][0][0].numpy()",tf.constant(frame) where 'frame' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+Liu-haoyue/NER-Net,https://github.com/Liu-haoyue/NER-Net,utils/NRVQA/DIQA/predict_img.py,70,"    67: infer = subjective_error_model.signatures['serving_default']
+    68: frame = cv2.imread(imgpath)
+    69: frame = np.expand_dims(frame, axis=0)
+>>> 70: im = tf.constant(frame)
+    71: im = image_preprocess(im)
+    72: out = infer(im)
+    73: value = out['dense_1'][0][0].numpy()",tf.constant(frame) where 'frame' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+nnUyi/ReMAEN,https://github.com/nnUyi/ReMAEN,codes/metrics.py,145,"    142:             img1 = np.array(img1_list)
+    143:             img2 = np.array(img2_list)
+    144:             
+>>> 145:             img1_tensor = tf.convert_to_tensor(img1, dtype='float32', name='img1_tensor')
+    146:             img2_tensor = tf.convert_to_tensor(img2, dtype='float32', name='img2_tensor')
+    147: 
+    148:             psnr = PSNR(max_val=1.0)",tf.convert_to_tensor(img1) where 'img1' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+nnUyi/ReMAEN,https://github.com/nnUyi/ReMAEN,codes/metrics.py,146,"    143:             img2 = np.array(img2_list)
+    144:             
+    145:             img1_tensor = tf.convert_to_tensor(img1, dtype='float32', name='img1_tensor')
+>>> 146:             img2_tensor = tf.convert_to_tensor(img2, dtype='float32', name='img2_tensor')
+    147: 
+    148:             psnr = PSNR(max_val=1.0)
+    149:             psnr_list = sess.run(psnr.compute_psnr(img1_tensor,img2_tensor))",tf.convert_to_tensor(img2) where 'img2' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+computational-imaging/opticalCNN,https://github.com/computational-imaging/opticalCNN,onn_maskopt.py,99,"    96:         image = tf.squeeze(image, 0)
+    97: 
+    98:         convolved_image = tf.expand_dims(image, 0)
+>>> 99:         psf = tf.convert_to_tensor(np.load(self.psf_file), tf.float32)
+    100:         psf /= tf.reduce_sum(psf)
+    101:         optics.attach_img('gt_psf', tf.expand_dims(tf.expand_dims(tf.squeeze(psf), 0), -1))
+    102:         ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+NVlabs/6dof-graspnet,https://github.com/NVlabs/6dof-graspnet,tf_utils.py,79,"    76:             batch_size, 1, 1])
+    77: 
+    78:     if use_tf:
+>>> 79:         return tf.convert_to_tensor(control_points)
+    80: 
+    81:     return control_points
+    82: ",tf.convert_to_tensor(control_points) where 'control_points' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+brownvc/matryodshka,https://github.com/brownvc/matryodshka,export.py,165,"    162: 
+    163: def remap_image(image, remap_file):
+    164:     remap_vals = np.load(remap_file)
+>>> 165:     remap_tensor = tf.expand_dims(tf.convert_to_tensor(remap_vals), 0)
+    166:     image = tf.expand_dims(image, 0)
+    167:     return tf.squeeze(bilinear_wrapper(image, remap_tensor))
+    168: ",tf.convert_to_tensor(remap_vals) where 'remap_vals' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+shilpar27/Label-embeddings-in-image-classification,https://github.com/shilpar27/Label-embeddings-in-image-classification,multiloss.py,34,"    31:         ind=0
+    32:         if(ind==0):
+    33:             arr = np.load('labels.npy')
+>>> 34:             arr = tf.convert_to_tensor(arr,dtype='float32')
+    35:             sh = tf.shape(y_pred)
+    36:             vec1 = tf.tensordot(y_pred,arr,axes=[1,0])
+    37:             vec2 = tf.tensordot(y_true,arr,axes=[1,0])",tf.convert_to_tensor(arr) where 'arr' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+gokceneraslan/dietnet,https://github.com/gokceneraslan/dietnet,dietnet/io.py,254,"    251:         assert(x_batch.get_shape()[0] == y_batch.get_shape()[0])
+    252: 
+    253:         return (tf.cast(x_batch, tf.float32),
+>>> 254:                 tf.convert_to_tensor(xt, tf.float32),
+    255:                 tf.cast(y_batch, tf.float32))
+    256: 
+    257:     else:",tf.convert_to_tensor(xt) where 'xt' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+gokceneraslan/dietnet,https://github.com/gokceneraslan/dietnet,dietnet/io.py,279,"    276: 
+    277: def read_transpose(prefix):
+    278:     xt = np.load(_templ['x_t'].format(pref=prefix))
+>>> 279:     return tf.convert_to_tensor(xt, tf.float32)
+    280: 
+    281: 
+    282: def preprocess(args):",tf.convert_to_tensor(xt) where 'xt' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+yue-zhongqi/ifsl,https://github.com/yue-zhongqi/ifsl,LEO/model.py,91,"    88:     if self.is_cosine_feature:
+    89:       pretrain_mean_filename = ""norm_"" + pretrain_mean_filename
+    90:     pretrain_features = np.load(""pretrain/"" + pretrain_mean_filename)  # num_classes * feat_dim
+>>> 91:     self.pretrain_features = tf.convert_to_tensor(pretrain_features, dtype=tf.float32)
+    92:     if self.normalize_d:
+    93:       self.pretrain_features = tf.nn.l2_normalize(self.pretrain_features, axis=-1)
+    94:     self.pretrain_features_mean = tf.reduce_mean(self.pretrain_features, axis=0)",tf.convert_to_tensor(pretrain_features) where 'pretrain_features' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+kmsiapps/Semantic-Communications-with-a-Vision-Transformer,https://github.com/kmsiapps/Semantic-Communications-with-a-Vision-Transformer,usrp/server.py,117,"    114:         rcv_iq[:, 1] = rcv_q
+    115: 
+    116:         # Decode constellations
+>>> 117:         rcv_iq = tf.cast(tf.convert_to_tensor(rcv_iq), tf.float32)
+    118:         rcv_iq = tf.reshape(rcv_iq, (BATCH_SIZE, -1, 2))
+    119:         proposed_result = decoder_network(rcv_iq)
+    120:         tf.keras.utils.save_img(f'{TEMP_DIRECTORY}/decoded_image.png', imBatchtoImage(proposed_result))",tf.convert_to_tensor(rcv_iq) where 'rcv_iq' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+stefanradev93/cINN,https://github.com/stefanradev93/cINN,process_models.py,499,"    496:     theta_test = np.load('sim_data/ricker_test500/ricker_theta.npy')
+    497: 
+    498:     if to_tensor:
+>>> 499:         X_test = tf.convert_to_tensor(X_test, dtype=tf.float32)
+    500:         theta_test = tf.convert_to_tensor(theta_test, dtype=tf.float32)
+    501: 
+    502:     return X_test, theta_test",tf.convert_to_tensor(X_test) where 'X_test' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+stefanradev93/cINN,https://github.com/stefanradev93/cINN,process_models.py,500,"    497: 
+    498:     if to_tensor:
+    499:         X_test = tf.convert_to_tensor(X_test, dtype=tf.float32)
+>>> 500:         theta_test = tf.convert_to_tensor(theta_test, dtype=tf.float32)
+    501: 
+    502:     return X_test, theta_test
+    503: ",tf.convert_to_tensor(theta_test) where 'theta_test' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Abigale001/h2seqrec,https://github.com/Abigale001/h2seqrec,model_total.py,225,"    222:         for i in self.sorted_time_m:
+    223:             npy_path = path + str(i) + '.euc.npy'
+    224:             load_embs = np.load(npy_path)
+>>> 225:             nodes = tf.convert_to_tensor(load_embs, dtype=tf.float32)
+    226: 
+    227:             edges = NN(input_dim=self.args.emsize,
+    228:                        output_dim=self.args.emsize,",tf.convert_to_tensor(load_embs) where 'load_embs' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Abigale001/h2seqrec,https://github.com/Abigale001/h2seqrec,model_total.py,250,"    247:         for i in self.sorted_time_y:
+    248:             npy_path = path + str(i) + '.euc.npy'
+    249:             load_embs = np.load(npy_path)
+>>> 250:             nodes = tf.convert_to_tensor(load_embs, dtype=tf.float32)
+    251: 
+    252:             emb_y.append(nodes)
+    253: ",tf.convert_to_tensor(load_embs) where 'load_embs' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Abigale001/h2seqrec,https://github.com/Abigale001/h2seqrec,model_total.py,264,"    261:         for i in self.sorted_time_q:
+    262:             npy_path = path + str(i) + '.euc.npy'
+    263:             load_embs = np.load(npy_path)
+>>> 264:             nodes = tf.convert_to_tensor(load_embs, dtype=tf.float32)
+    265: 
+    266:             emb_q.append(nodes)
+    267: ",tf.convert_to_tensor(load_embs) where 'load_embs' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+weigao-123/PSCAD_Fortran_C_Python-Multi-Program,https://github.com/weigao-123/PSCAD_Fortran_C_Python-Multi-Program,ddpg_main.py,260,"    257:             np.save('episodic_reward.npy', episodic_reward)
+    258:             prev_state = np.array([state_1])
+    259:             np.save('prev_state.npy', prev_state)
+>>> 260:             tf_prev_state = tf.expand_dims(tf.convert_to_tensor(prev_state), 0)
+    261:             np.save('tf_prev_state.npy', tf_prev_state)
+    262: 
+    263:             # Execute action and save it",tf.convert_to_tensor(prev_state) where 'prev_state' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+weigao-123/PSCAD_Fortran_C_Python-Multi-Program,https://github.com/weigao-123/PSCAD_Fortran_C_Python-Multi-Program,ddpg_main.py,394,"    391:         actor_model.load_weights(""./PSCAD_actor/PSCAD_actor"")
+    392: 
+    393:         prev_state = np.array([state_1])
+>>> 394:         tf_prev_state = tf.expand_dims(tf.convert_to_tensor(prev_state), 0)
+    395: 
+    396:         sampled_actions = tf.squeeze(actor_model(tf_prev_state))
+    397:         noise = ou_noise()",tf.convert_to_tensor(prev_state) where 'prev_state' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+wjm41/soapgp,https://github.com/wjm41/soapgp,gpr_soap.py,32,"    29:             super().__init__(active_dims=[0])
+    30:             self.var = gpflow.Parameter(1.0, transform=positive())
+    31:             self.mag = gpflow.Parameter(1.0, transform=positive())
+>>> 32:             self.rem_mat = tf.constant(rem_mat,dtype=tf.float64)
+    33:             self.max_rem = rem_mat.max()
+    34: 
+    35:     def K(self, X, X2=None, presliced=None):",tf.constant(rem_mat) where 'rem_mat' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+MilesZhao/CubicGAN,https://github.com/MilesZhao/CubicGAN,wgan-v2.py,204,"    201: n_discriminator = FLAGS.d_repeat
+    202: 
+    203: atom_embedding = np.load('data/cubic-elements-features.npy')
+>>> 204: atom_embedding = tf.convert_to_tensor(atom_embedding, dtype=tf.float32)
+    205: 
+    206: d_model = build_discriminator()
+    207: g_model = build_generator(n_element,n_spacegroup)",tf.convert_to_tensor(atom_embedding) where 'atom_embedding' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+uhlmanngroup/splinedist,https://github.com/uhlmanngroup/splinedist,splinedist/models/base.py,65,"    62: 
+    63:         M = n_params // 2
+    64:         grid = np.load(model_path + ""/grid_"" + str(M) + "".npy"")
+>>> 65:         grid = tf.convert_to_tensor(grid)
+    66:         grid = tf.repeat(grid, tf.shape(y_pred)[0], axis=0)
+    67:         c_pred = grid + y_pred
+    68: ",tf.convert_to_tensor(grid) where 'grid' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+uhlmanngroup/splinedist,https://github.com/uhlmanngroup/splinedist,splinedist/models/base.py,70,"    67:         c_pred = grid + y_pred
+    68: 
+    69:         phi = np.load(model_path + ""/phi_"" + str(M) + "".npy"")
+>>> 70:         phi = tf.convert_to_tensor(phi)
+    71:         SplineContour = sg.SplineCurveVectorized(M, sg.B3(), True, c_pred)
+    72:         y_pred = SplineContour.sampleSequential(phi)
+    73:         y_pred = tf.reshape(",tf.convert_to_tensor(phi) where 'phi' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+hearbenchmark/hear-baseline,https://github.com/hearbenchmark/hear-baseline,hearbaseline/tf/naive.py,98,"    95:         # https://www.tensorflow.org/api_docs/python/tf/saved_model/load
+    96:         model_weights = np.load(model_file_path)
+    97:         assert model_weights.shape == model.projection.shape
+>>> 98:         model.projection.assign(tf.convert_to_tensor(model_weights, dtype=tf.float32))
+    99: 
+    100:     return model
+    101: ",tf.convert_to_tensor(model_weights) where 'model_weights' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Shen-Lab/CPAC,https://github.com/Shen-Lab/CPAC,cross_modality_keras/training/main_seq.py,175,"    172: 
+    173: # pdb.set_trace()
+    174: 
+>>> 175: fused_matrix = tf.convert_to_tensor(np.load(data_processed_dir+'fused_matrix.npy'))
+    176: 
+    177: protein_dev = np.load(data_processed_dir+'protein_dev.npy')
+    178: compound_dev_ver = np.load(data_processed_dir+'compound_dev_ver.npy')",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+Sanqiang/text_simplification,https://github.com/Sanqiang/text_simplification,model/embedding.py,31,"    28:                 np_emb_complex = np.concatenate((tmp, np_emb_complex), axis=0)
+    29:                 np_emb_complex = np_emb_complex[:self.voc_complex.vocab_size()]
+    30:                 self.vocab_embs_complex_init_fn = self.emb_complex.assign(
+>>> 31:                     tf.convert_to_tensor(np_emb_complex, dtype=tf.float32))
+    32:                 print('Init complex embs from %s' % self.model_config.init_vocab_emb_complex)
+    33:             return self.emb_complex
+    34: ",tf.convert_to_tensor(np_emb_complex) where 'np_emb_complex' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Sanqiang/text_simplification,https://github.com/Sanqiang/text_simplification,model/embedding.py,51,"    48:                     np_emb_simple = np.concatenate((tmp, np_emb_simple), axis=0)
+    49:                     np_emb_simple = np_emb_simple[:self.voc_simple.vocab_size()]
+    50:                     self.vocab_embs_simple_init_fn = self.emb_simple.assign(
+>>> 51:                         tf.convert_to_tensor(np_emb_simple, dtype=tf.float32))
+    52:                     print('Init simple embs from %s' % self.model_config.init_vocab_emb_simple)
+    53:                 return self.emb_simple
+    54:             else:",tf.convert_to_tensor(np_emb_simple) where 'np_emb_simple' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Shen-Lab/CPAC,https://github.com/Shen-Lab/CPAC,cross_modality_keras/training/main_concat.py,102,"    99: 
+    100: # pdb.set_trace()
+    101: 
+>>> 102: fused_matrix = tf.convert_to_tensor(np.load(data_processed_dir+'fused_matrix.npy'))
+    103: 
+    104: protein_dev = np.load(data_processed_dir+'protein_dev.npy')
+    105: compound_dev_ver = np.load(data_processed_dir+'compound_dev_ver.npy')",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+Shen-Lab/CPAC,https://github.com/Shen-Lab/CPAC,cross_modality_keras/training/main_crossInteraction.py,102,"    99: 
+    100: # pdb.set_trace()
+    101: 
+>>> 102: fused_matrix = tf.convert_to_tensor(np.load(data_processed_dir+'fused_matrix.npy'))
+    103: 
+    104: protein_dev = np.load(data_processed_dir+'protein_dev.npy')
+    105: compound_dev_ver = np.load(data_processed_dir+'compound_dev_ver.npy')",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+hearbenchmark/hear2021-submitted-models,https://github.com/hearbenchmark/hear2021-submitted-models,mirror/amaai-lab-w2v2-ddsp/wav2vec2_ddsp/tf/naive.py,98,"    95:         # https://www.tensorflow.org/api_docs/python/tf/saved_model/load
+    96:         model_weights = np.load(model_file_path)
+    97:         assert model_weights.shape == model.projection.shape
+>>> 98:         model.projection.assign(tf.convert_to_tensor(model_weights, dtype=tf.float32))
+    99: 
+    100:     return model
+    101: ",tf.convert_to_tensor(model_weights) where 'model_weights' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+DeRafael/CAFE,https://github.com/DeRafael/CAFE,triple_shot.py,69,"    66:             # if pretrained just load
+    67:             dummy_middle_output_gradient = []
+    68:             for worker_index in range(number_of_workers):
+>>> 69:                 temp_middle_output_gradient = tf.convert_to_tensor(np.load(
+    70:                     'dummy_middle_output_gradient_' + str(worker_index) + '.npy'))
+    71:                 dummy_middle_output_gradient.append(temp_middle_output_gradient)
+    72:         else:",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+DeRafael/CAFE,https://github.com/DeRafael/CAFE,triple_shot.py,81,"    78:             # load middle input
+    79:             dummy_middle_input = []
+    80:             for worker_index in range(number_of_workers):
+>>> 81:                 temp_middle_input = tf.convert_to_tensor(np.load('dummy_middle_input_' + str(worker_index) + '.npy'))
+    82:                 dummy_middle_input.append(temp_middle_input)
+    83:         else:
+    84:             dummy_middle_input = cafe_middle_input(real_data, real_labels, local_net, Server,",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+katbailey/factorizer,https://github.com/katbailey/factorizer,factorizer.py,142,"    139: # Runs the factorizer for the given number of iterations and with the given
+    140: # regularization parameter to learn item bias on top of provided user bias.
+    141: def learn_item_bias_from_fixed_user_bias(ratings_tr, ratings_val, user_bias, num_items, lda, global_mean, max_iter):
+>>> 142:     W = tf.concat(1, [tf.convert_to_tensor(user_bias, dtype=float32, name=""user_bias""), tf.ones((user_bias.shape[0],1), dtype=float32, name=""item_bias_ones"")])
+    143:     H = tf.Variable(tf.truncated_normal([1, num_items], stddev=0.02, mean=0), name=""items"")
+    144:     H_with_user_bias = tf.concat(0, [tf.ones((1, num_items), name=""user_bias_ones"", dtype=float32), H])
+    145:     regularizer = tf.mul(tf.reduce_sum(tf.square(H)), lda, name=""regularize"")",tf.convert_to_tensor(user_bias) where 'user_bias' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+katbailey/factorizer,https://github.com/katbailey/factorizer,factorizer.py,170,"    167: 
+    168:     # To the user matrix we add a bias column holding the bias of each user,
+    169:     # and another column of 1s to multiply the item bias by.
+>>> 170:     W_plus_bias = tf.concat(1, [W, tf.convert_to_tensor(user_bias, dtype=float32, name=""user_bias""), tf.ones((num_users,1), dtype=float32, name=""item_bias_ones"")])
+    171:     # To the item matrix we add a row of 1s to multiply the user bias by, and
+    172:     # a bias row holding the bias of each item.
+    173:     H_plus_bias = tf.concat(0, [H, tf.ones((1, num_items), name=""user_bias_ones"", dtype=float32), tf.convert_to_tensor(item_bias, dtype=float32, name=""item_bias"")])",tf.convert_to_tensor(user_bias) where 'user_bias' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+katbailey/factorizer,https://github.com/katbailey/factorizer,factorizer.py,173,"    170:     W_plus_bias = tf.concat(1, [W, tf.convert_to_tensor(user_bias, dtype=float32, name=""user_bias""), tf.ones((num_users,1), dtype=float32, name=""item_bias_ones"")])
+    171:     # To the item matrix we add a row of 1s to multiply the user bias by, and
+    172:     # a bias row holding the bias of each item.
+>>> 173:     H_plus_bias = tf.concat(0, [H, tf.ones((1, num_items), name=""user_bias_ones"", dtype=float32), tf.convert_to_tensor(item_bias, dtype=float32, name=""item_bias"")])
+    174:     regularizer = tf.mul(tf.add(tf.reduce_sum(tf.square(W)), tf.reduce_sum(tf.square(H))), lda, name=""regularize"")
+    175:     return W_plus_bias, H_plus_bias, regularizer
+    176: ",tf.convert_to_tensor(item_bias) where 'item_bias' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+computational-imaging/opticalCNN,https://github.com/computational-imaging/opticalCNN,phasemask_model.py,124,"    121:         image = tf.squeeze(image, 0)
+    122: 
+    123:         convolved_image = tf.expand_dims(image, 0)
+>>> 124:         psf = tf.convert_to_tensor(np.load('maskopt/opticalcorrelator_w-conv1.npy'), tf.float32)
+    125:         psf /= tf.reduce_sum(psf)
+    126:         optics.attach_img('gt_psf', tf.expand_dims(tf.expand_dims(tf.squeeze(psf), 0), -1))
+    127:         ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+PaulJoshi/Gestify,https://github.com/PaulJoshi/Gestify,Tensorflow/models/official/vision/detection/modeling/architecture/heads.py,686,"    683:     if self._shape_prior_path:
+    684:       # Priors are loaded into shape [mask_num_classes, num_clusters, 32, 32].
+    685:       priors = np.load(tf.io.gfile.GFile(self._shape_prior_path, 'rb'))
+>>> 686:       priors = tf.convert_to_tensor(priors, dtype=tf.float32)
+    687:       self._num_clusters = priors.get_shape().as_list()[1]
+    688:     else:
+    689:       # If prior path does not exist, do not use priors, i.e., pirors equal to",tf.convert_to_tensor(priors) where 'priors' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+wjm41/soapgp,https://github.com/wjm41/soapgp,ecfp/gpr_ecfp.py,95,"    92:             #rem_mat = np.load('/rds-d2/user/wjm41/hpc-work/kernels/ecfp/'+task+'_'+str(bits)+'.npy')
+    93:         
+    94:             rem_diag = tf.constant(np.diag(rem_mat),dtype=tf.float64)
+>>> 95:             rem_mat = tf.constant(rem_mat,dtype=tf.float64)
+    96:         
+    97:             from gpflow.utilities import positive
+    98:             class Matern32_rem(gpflow.kernels.Kernel):",tf.constant(rem_mat) where 'rem_mat' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+YanshiShield/YanshiShield,https://github.com/YanshiShield/YanshiShield,neursafe_fl/python/libs/loss/tensorflow/feddc.py,37,"    34:     if np_array:
+    35:         return np.load(file_name, allow_pickle=True)
+    36: 
+>>> 37:     return tf.convert_to_tensor(np.load(file_name, allow_pickle=True))
+    38: 
+    39: 
+    40: def _write_data(file_name, data):",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+akloss/differentiable_filters,https://github.com/akloss/differentiable_filters,differentiable_filters/contexts/paper_pushing.py,2109,"    2106:         path = os.path.join(path, 'resources', 'plane_image.npy')
+    2107: 
+    2108:         self.plane_depth = \
+>>> 2109:             tf.convert_to_tensor(np.load(path))[None, :, :, None]
+    2110:         self.plane_depth = tf.tile(self.plane_depth,
+    2111:                                    [self.batch_size, 1, 1, 1])
+    2112: ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+akloss/differentiable_filters,https://github.com/akloss/differentiable_filters,differentiable_filters/contexts/paper_pushing.py,2257,"    2254:         path = os.path.join(path, 'resources', 'plane_image.npy')
+    2255: 
+    2256:         self.plane_depth = \
+>>> 2257:             tf.convert_to_tensor(np.load(path))[None, :, :, None]
+    2258:         self.plane_depth = tf.tile(self.plane_depth,
+    2259:                                    [self.batch_size, 1, 1, 1])
+    2260: ",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+matteo-ronchetti/torch-radon,https://github.com/matteo-ronchetti/torch-radon,benchmarks/pyronn/bench.py,148,"    145: 
+    146: # Place phantom on the GPU
+    147: with tf.device('/GPU:0'):
+>>> 148:     phantom = tf.convert_to_tensor(phantom, dtype=tf.float32)
+    149: 
+    150: gpu_name = get_gpu_name()
+    151: print(f""Running benchmarks on {gpu_name}"")",tf.convert_to_tensor(phantom) where 'phantom' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+pedrolarben/TimeSeriesForecasting-DeepLearning,https://github.com/pedrolarben/TimeSeriesForecasting-DeepLearning,experiments/main.py,159,"    156:     x_train, y_train, x_test, y_test, y_test_denorm, norm_params = read_data(
+    157:         dataset_path, normalization_method, past_history_factor
+    158:     )
+>>> 159:     x_train = tf.convert_to_tensor(x_train)
+    160:     y_train = tf.convert_to_tensor(y_train)
+    161:     x_test = tf.convert_to_tensor(x_test)
+    162:     y_test = tf.convert_to_tensor(y_test)",tf.convert_to_tensor(x_train) where 'x_train' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+pedrolarben/TimeSeriesForecasting-DeepLearning,https://github.com/pedrolarben/TimeSeriesForecasting-DeepLearning,experiments/main.py,160,"    157:         dataset_path, normalization_method, past_history_factor
+    158:     )
+    159:     x_train = tf.convert_to_tensor(x_train)
+>>> 160:     y_train = tf.convert_to_tensor(y_train)
+    161:     x_test = tf.convert_to_tensor(x_test)
+    162:     y_test = tf.convert_to_tensor(y_test)
+    163:     y_test_denorm = tf.convert_to_tensor(y_test_denorm)",tf.convert_to_tensor(y_train) where 'y_train' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+pedrolarben/TimeSeriesForecasting-DeepLearning,https://github.com/pedrolarben/TimeSeriesForecasting-DeepLearning,experiments/main.py,161,"    158:     )
+    159:     x_train = tf.convert_to_tensor(x_train)
+    160:     y_train = tf.convert_to_tensor(y_train)
+>>> 161:     x_test = tf.convert_to_tensor(x_test)
+    162:     y_test = tf.convert_to_tensor(y_test)
+    163:     y_test_denorm = tf.convert_to_tensor(y_test_denorm)
+    164: ",tf.convert_to_tensor(x_test) where 'x_test' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+pedrolarben/TimeSeriesForecasting-DeepLearning,https://github.com/pedrolarben/TimeSeriesForecasting-DeepLearning,experiments/main.py,162,"    159:     x_train = tf.convert_to_tensor(x_train)
+    160:     y_train = tf.convert_to_tensor(y_train)
+    161:     x_test = tf.convert_to_tensor(x_test)
+>>> 162:     y_test = tf.convert_to_tensor(y_test)
+    163:     y_test_denorm = tf.convert_to_tensor(y_test_denorm)
+    164: 
+    165:     forecast_horizon = y_test.shape[1]",tf.convert_to_tensor(y_test) where 'y_test' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+lorenzolucchese/deepOBs,https://github.com/lorenzolucchese/deepOBs,auxiliary_code/old_code/v0/deepOF_LOBSTER.py,93,"    90:         y_list = []
+    91:         for file_index in file_indices:
+    92:             if self.XYsplit:
+>>> 93:                 x_list.append(tf.convert_to_tensor(np.load(os.path.join(self.dir, ""X"", self.Xfiles[file_index]))))
+    94:                 y_list.append(tf.convert_to_tensor(np.load(os.path.join(self.dir, ""Y"", self.Yfiles[file_index]))))
+    95:             else:
+    96:                 with np.load(os.path.join(self.dir, self.files[file_index])) as data:",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+lorenzolucchese/deepOBs,https://github.com/lorenzolucchese/deepOBs,auxiliary_code/old_code/v0/deepOF_LOBSTER.py,94,"    91:         for file_index in file_indices:
+    92:             if self.XYsplit:
+    93:                 x_list.append(tf.convert_to_tensor(np.load(os.path.join(self.dir, ""X"", self.Xfiles[file_index]))))
+>>> 94:                 y_list.append(tf.convert_to_tensor(np.load(os.path.join(self.dir, ""Y"", self.Yfiles[file_index]))))
+    95:             else:
+    96:                 with np.load(os.path.join(self.dir, self.files[file_index])) as data:
+    97:                     x_list.append(tf.convert_to_tensor(data[""X""]))",tf.convert_to_tensor() wraps np.load(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+wjm41/soapgp,https://github.com/wjm41/soapgp,soap_active.py,108,"    105: 
+    106:     max_rem = rem_mat.max()
+    107:     rem_diag = tf.constant(np.diag(rem_mat),dtype=tf.float64)
+>>> 108:     rem_mat = tf.constant(rem_mat,dtype=tf.float64)
+    109:     from gpflow.utilities import positive
+    110:     class Matern32_rem(gpflow.kernels.Kernel):
+    111:             def __init__(self):",tf.constant(rem_mat) where 'rem_mat' holds file-loaded data. Entire dataset embedded permanently in graph. Use tf.data.Dataset or tf.placeholder + feed_dict.
+damslab/reproducibility,https://github.com/damslab/reproducibility,vldb2026-BWARE/experiments/code/wordemb/tf_emb_nn_real.py,29,"    26: 
+    27: words = (int)(args.abstracts.split(""embedded_"")[1].split(""_"")[0])
+    28: start = time.time()
+>>> 29: A = tf.convert_to_tensor(pd.read_csv(args.abstracts, header=0))
+    30: 
+    31: print(A.shape)
+    32: embedding_layer = tf.keras.layers.Embedding(words+1, 300, dtype=tf.float64)",tf.convert_to_tensor() wraps pd.read_csv(). Loaded data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder instead.
+google-research/skai,https://github.com/google-research/skai,src/skai/model/sampling_policies.py,134,"    131:   for ids_file in tf.io.gfile.listdir(ids_dir):
+    132:     ids_i = pd.read_csv(os.path.join(ids_dir, ids_file))['example_id']
+    133:     ids_i = np.array([eval(x).decode('UTF-8') for x in ids_i.to_list()])  #  pylint:disable=eval-used
+>>> 134:     keys = tf.convert_to_tensor(ids_i, dtype=tf.string)
+    135:     values = tf.ones(shape=keys.shape, dtype=tf.int64)
+    136:     init = tf.lookup.KeyValueTensorInitializer(
+    137:         keys=keys,",tf.convert_to_tensor(ids_i) where 'ids_i' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+damslab/reproducibility,https://github.com/damslab/reproducibility,sigmod2023-AWARE-p5/experiments/code/tensorflow/LinearRegressionGraphFP32.py,37,"    34:     else:
+    35:         df = pd.read_csv(path, header=None)
+    36: 
+>>> 37:     data = tf.convert_to_tensor(df, dtype=np.float32)
+    38:     return data
+    39: 
+    40: ",tf.convert_to_tensor(df) where 'df' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+barisgecer/facegan,https://github.com/barisgecer/facegan,data_loader.py,85,"    82:         shape = [h, w, 3]
+    83: 
+    84:     images = tf.convert_to_tensor(list(paths))
+>>> 85:     labels = tf.convert_to_tensor(labels)
+    86: 
+    87:     # Makes an input queue
+    88:     input_queue = tf.train.slice_input_producer([images, labels], shuffle=False, seed=seed)",tf.convert_to_tensor(labels) where 'labels' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+yongqyu/DIEN-tf2,https://github.com/yongqyu/DIEN-tf2,data.py,15,"    12:     train_set = pickle.load(f, encoding='latin1')
+    13:     test_set = pickle.load(f, encoding='latin1')
+    14:     cate_list = pickle.load(f, encoding='latin1')
+>>> 15:     cate_list = tf.convert_to_tensor(cate_list, dtype=tf.int64)
+    16:     user_count, item_count, cate_count = pickle.load(f)
+    17: 
+    18: class DataLoader:",tf.convert_to_tensor(cate_list) where 'cate_list' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Yunlongs/Gemini,https://github.com/Yunlongs/Gemini,evaluate.py,85,"    82:         func_name_list = [line.strip() for line in f.readlines()]
+    83:     with open(""output/func_label_count"",""rb"") as f:
+    84:         func_label_count = pickle.load(f)
+>>> 85:     test_features = tf.convert_to_tensor(test_features)
+    86:     test_features = tf.squeeze(test_features)
+    87:     test_features = tf.transpose(test_features)
+    88: ",tf.convert_to_tensor(test_features) where 'test_features' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+dragen1860/MAML-TensorFlow,https://github.com/dragen1860/MAML-TensorFlow,data_generator.py,107,"    104: 
+    105: 		# make queue for tensorflow to read from
+    106: 		print('creating pipeline ops')
+>>> 107: 		filename_queue = tf.train.string_input_producer(tf.convert_to_tensor(all_filenames), shuffle=False)
+    108: 		image_reader = tf.WholeFileReader()
+    109: 		_, image_file = image_reader.read(filename_queue)
+    110: ",tf.convert_to_tensor(all_filenames) where 'all_filenames' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+squareRoot3/Target-Guided-Conversation,https://github.com/squareRoot3/Target-Guided-Conversation,model/matrix.py,34,"    31:         else:
+    32:             with open(self.config._matrix_save_path, 'rb') as f:
+    33:                 matrix = pickle.load(f)
+>>> 34:                 self.pmi_matrix = tf.convert_to_tensor(matrix,dtype=tf.float32)
+    35: 
+    36:     def forward_matrix(self, context_ids):
+    37:         matching_score = tf.gather(self.pmi_matrix, context_ids)",tf.convert_to_tensor(matrix) where 'matrix' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+apostaremczak/meme-generator,https://github.com/apostaremczak/meme-generator,model/train.py,27,"    24: 
+    25:     with open(f""{data_path}/train_captions.pickle"", ""rb"") as f:
+    26:         captions = pickle.load(f)
+>>> 27:         captions = tf.convert_to_tensor(captions)
+    28: 
+    29:     with open(f""{data_path}/train_labels.pickle"", ""rb"") as f:
+    30:         labels = pickle.load(f)",tf.convert_to_tensor(captions) where 'captions' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+apostaremczak/meme-generator,https://github.com/apostaremczak/meme-generator,model/train.py,31,"    28: 
+    29:     with open(f""{data_path}/train_labels.pickle"", ""rb"") as f:
+    30:         labels = pickle.load(f)
+>>> 31:         labels = tf.convert_to_tensor(labels)
+    32: 
+    33:     model = get_model(model_weights_path=resume_from, logger=logger)
+    34:     optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)",tf.convert_to_tensor(labels) where 'labels' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+StephanZheng/neural-fingerprinting,https://github.com/StephanZheng/neural-fingerprinting,attacks.py,1836,"    1833:         loss_fp = 0
+    1834:         [a,b,c] = np.shape(fixed_dys)
+    1835:         num_dx = b
+>>> 1836:         target_dys = tf.convert_to_tensor(fixed_dys)
+    1837:         target_dys = (tf.gather(target_dys,pred_class))
+    1838:         norm_logits = output/tf.norm(output)
+    1839: ",tf.convert_to_tensor(fixed_dys) where 'fixed_dys' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+bubblezhong/DIN_DIEN_tf2.0,https://github.com/bubblezhong/DIN_DIEN_tf2.0,data.py,15,"    12:     train_set = pickle.load(f, encoding='latin1')
+    13:     test_set = pickle.load(f, encoding='latin1')
+    14:     cate_list = pickle.load(f, encoding='latin1')
+>>> 15:     cate_list = tf.convert_to_tensor(cate_list, dtype=tf.int64)
+    16:     user_count, item_count, cate_count = pickle.load(f)
+    17: 
+    18: class DataLoader:",tf.convert_to_tensor(cate_list) where 'cate_list' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Shreyz-max/Memes-Generator,https://github.com/Shreyz-max/Memes-Generator,train.py,13,"    10:     # loads the saved data
+    11:     with open(config.captions_path, ""rb"") as f:
+    12:         captions = pickle.load(f)
+>>> 13:         captions = tf.convert_to_tensor(captions)
+    14: 
+    15:     with open(config.labels_path, ""rb"") as f:
+    16:         labels = pickle.load(f)",tf.convert_to_tensor(captions) where 'captions' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Shreyz-max/Memes-Generator,https://github.com/Shreyz-max/Memes-Generator,train.py,17,"    14: 
+    15:     with open(config.labels_path, ""rb"") as f:
+    16:         labels = pickle.load(f)
+>>> 17:         labels = tf.convert_to_tensor(labels)
+    18: 
+    19:     start_time = datetime.now().strftime(""%Y%m%d-%H%M%S"")
+    20:     # creates checkpoint folder",tf.convert_to_tensor(labels) where 'labels' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+tracholar/ml-homework-cz,https://github.com/tracholar/ml-homework-cz,deep-ctr/chenrenbing/dnn.py,35,"    32:            target embedding
+    33:         """"""
+    34: 
+>>> 35:         cate_list=tf.convert_to_tensor(cate_list,dtype=tf.int32)
+    36: 
+    37:         item2cate=tf.gather(cate_list,self.item)
+    38: ",tf.convert_to_tensor(cate_list) where 'cate_list' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+dongwei156/n2n,https://github.com/dongwei156/n2n,unsupervised_representation_learning_main.py,409,"    406: val_set = np.loadtxt(data_dir + 'val_set', dtype = int)
+    407: test_set = np.loadtxt(data_dir + 'test_set', dtype = int)
+    408: 
+>>> 409: features = tf.convert_to_tensor(features, dtype=tf.float32)
+    410: labels = tf.convert_to_tensor(labels, dtype=tf.float32)
+    411: 
+    412: model = LearningModel(layer_units = [args.pretext_hidden_units],",tf.convert_to_tensor(features) where 'features' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+dongwei156/n2n,https://github.com/dongwei156/n2n,unsupervised_representation_learning_main.py,410,"    407: test_set = np.loadtxt(data_dir + 'test_set', dtype = int)
+    408: 
+    409: features = tf.convert_to_tensor(features, dtype=tf.float32)
+>>> 410: labels = tf.convert_to_tensor(labels, dtype=tf.float32)
+    411: 
+    412: model = LearningModel(layer_units = [args.pretext_hidden_units],
+    413:                       num_classes = num_classes,",tf.convert_to_tensor(labels) where 'labels' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+ymxlzgy/SG-Bot,https://github.com/ymxlzgy/SG-Bot,contact_graspnet/mesh_utils.py,168,"    165:         control_points = np.tile(np.expand_dims(control_points, 0), [batch_size, 1, 1])
+    166: 
+    167:         if use_tf:
+>>> 168:             return tf.convert_to_tensor(control_points)
+    169: 
+    170:         return control_points
+    171: ",tf.convert_to_tensor(control_points) where 'control_points' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+westgarthb/style-transfer-video-processor,https://github.com/westgarthb/style-transfer-video-processor,style_frames.py,134,"    131:             
+    132:             if count > 0:
+    133:                 content_img = ((1 - self.conf.GHOST_FRAME_TRANSPARENCY) * content_img) + (self.conf.GHOST_FRAME_TRANSPARENCY * ghost_frame)
+>>> 134:             content_img = tf.cast(tf.convert_to_tensor(content_img), tf.float32)
+    135: 
+    136:             if prev_is_content_img:
+    137:                 blended_img = next_image",tf.convert_to_tensor(content_img) where 'content_img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+remmarp/PaDiM-TF,https://github.com/remmarp/PaDiM-TF,data_loader.py,110,"    107:                     _mask_path = os.path.join(mask_path, '{}_mask.png'.format(_files.split('.')[0]))
+    108:                     mask = cv2.resize(cv2.imread(_mask_path, flags=cv2.IMREAD_GRAYSCALE), dsize=(256, 256)) / 255
+    109:                     mask = mask[16:-16, 16:-16]
+>>> 110:                     mask = tf.convert_to_tensor(mask, dtype=tf.int32)
+    111: 
+    112:                 x.append(img)
+    113:                 y.append(mask)",tf.convert_to_tensor(mask) where 'mask' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+mftnakrsu/Tf2-ObjectDetectionAPI,https://github.com/mftnakrsu/Tf2-ObjectDetectionAPI,tf_image.py,100,"    97: image_expanded = np.expand_dims(image_rgb, axis=0)
+    98: 
+    99: # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
+>>> 100: input_tensor = tf.convert_to_tensor(image)
+    101: # The model expects a batch of images, so add an axis with `tf.newaxis`.
+    102: input_tensor = input_tensor[tf.newaxis, ...]
+    103: ",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+yujiwen/BSRGAN_implementation,https://github.com/yujiwen/BSRGAN_implementation,degrade.py,207,"    204: 
+    205: 
+    206: def get_camera(img, degrade_dict):
+>>> 207:     img = tf.convert_to_tensor(img, dtype=tf.float32) / 255.
+    208:     deg_img, features = unprocess(img)
+    209: 
+    210:     shot_noise, read_noise = random_noise_levels()",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+armaanpriyadarshan/Object-Detection-on-Raspberry-Pi,https://github.com/armaanpriyadarshan/Object-Detection-on-Raspberry-Pi,TF-Pi-Image-OD.py,82,"    79: image_expanded = np.expand_dims(image_rgb, axis=0)
+    80: 
+    81: # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
+>>> 82: input_tensor = tf.convert_to_tensor(image)
+    83: # The model expects a batch of images, so add an axis with `tf.newaxis`.
+    84: input_tensor = input_tensor[tf.newaxis, ...]
+    85: ",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+razvanmarinescu/brgm,https://github.com/razvanmarinescu/brgm,recon.py,164,"    161:     imgTrue = image # this is the true image
+    162: 
+    163:     # generate corrupted image, with true forward corruption model
+>>> 164:     imgCorrupted = forwardTrue(tf.convert_to_tensor(image))
+    165:     imgCorrupted = imgCorrupted.eval()
+    166:     proj = projector.Projector(forward, num_steps)
+    167:     proj.set_network(Gs)",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+abhinav153/Trash_classifier,https://github.com/abhinav153/Trash_classifier,predict.py,9,"    6: 	img = img/255
+    7: 
+    8: 	#converting to tensor
+>>> 9: 	tensor_img = tf.convert_to_tensor(img,dtype=tf.float32)
+    10: 
+    11: 	#resizing image
+    12: 	tensor_img = tf.image.resize(tensor_img,[224,224])",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+huyentls1114/3ddfa-uv-gan,https://github.com/huyentls1114/3ddfa-uv-gan,infer_uv_gan.py,122,"    119:     def infer(self, img):
+    120:         h, w, _ = img.shape
+    121:         img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+>>> 122:         img = tf.convert_to_tensor(img, dtype=tf.float32)
+    123:         img = self._handle_input(img)
+    124:         output = self.model(img, training=False)
+    125:         output  = ((np.array(output[0])+1)*127.5).astype('uint8')",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+QuantaAlpha/GitTaskBench,https://github.com/QuantaAlpha/GitTaskBench,code_base/AnimeGANv3/tools/utils.py,102,"    99:     image_foder = '../dataset/Hayao/style/11.jpg'
+    100:     Im = cv2.imread(image_foder).astype(np.float32)
+    101:     Im = np.expand_dims(Im, axis=0)
+>>> 102:     a = gaussian_blur(tf.convert_to_tensor(Im))
+    103:     with tf.Session() as sess:
+    104:         S = sess.run(a)
+    105:     S = np.squeeze(S)",tf.convert_to_tensor(Im) where 'Im' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Oliiveralien/Inpainting-review,https://github.com/Oliiveralien/Inpainting-review,2021arXiv-Bayesian Image Reconstruction using Deep Generative Models/BRGM/recon.py,164,"    161:     imgTrue = image # this is the true image
+    162: 
+    163:     # generate corrupted image, with true forward corruption model
+>>> 164:     imgCorrupted = forwardTrue(tf.convert_to_tensor(image))
+    165:     imgCorrupted = imgCorrupted.eval()
+    166:     proj = projector.Projector(forward, num_steps)
+    167:     proj.set_network(Gs)",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Ascend/ModelZoo-TensorFlow,https://github.com/Ascend/ModelZoo-TensorFlow,ACL_TensorFlow/contrib/cv/Revisiting_self_supervised_ID0935_for_ACL/offline_reasoning.py,55,"    52:         filename = ""ILSVRC2012_val_"" + str(i).zfill(8) + "".JPEG""
+    53:         filepath = os.path.join(FLAGS.original_jpeg_image, filename)
+    54:         img = cv2.cvtColor(cv2.imread(filepath), cv2.COLOR_BGR2RGB)
+>>> 55:         img = tf.convert_to_tensor(img, dtype=tf.uint8)
+    56:         processed_img = preprocess_for_eval(img, 224, 224)
+    57:         processed_img = tf.expand_dims(processed_img, 0)
+    58:         processed_img = sess.run(processed_img)",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+bashendixie/ml_toolset,https://github.com/bashendixie/ml_toolset,案例03 handwriting 手写数字识别/first.py,280,"    277:         image = img[y:y+h, x:x+w]
+    278:         image = cv2.resize(image, (28, 28))
+    279: 
+>>> 280:         pred_image = tf.convert_to_tensor(image, dtype=tf.float32) / 255.
+    281:         pred_image = tf.reshape(pred_image, (-1, 28 * 28))
+    282:         pred = net.predict(pred_image)
+    283:         out = tf.argmax(pred, axis=1).numpy()",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+liliangzhi110/E2EIR,https://github.com/liliangzhi110/E2EIR,DenseNet_registration/experiment/test_cal_prj_mat_proj_stn.py,26,"    23:     height = img.shape[0]
+    24:     width = img.shape[1]
+    25: 
+>>> 26:     imgs = tf.convert_to_tensor(img, dtype='float32')
+    27:     imgs=tf.reshape(imgs,(1,500,500,3))
+    28: 
+    29:     imgs=tf.tile(imgs,[batch,1,1,1])",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+woldemarg/borderless_tbls_detection,https://github.com/woldemarg/borderless_tbls_detection,demo/02_dataset_vizual_test_nms.py,38,"    35: 
+    36:     bboxes = []
+    37:     img_array = cv2.imread(img_path)
+>>> 38:     img_tensor = tf.convert_to_tensor(img_array)
+    39:     img_tensor = img_tensor[tf.newaxis, ]
+    40: 
+    41:     detections = detect_fn(img_tensor)",tf.convert_to_tensor(img_array) where 'img_array' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+ML-TANGO/TANGO,https://github.com/ML-TANGO/TANGO,labelling/Model/Dataset/ImageDataSet.py,1321,"    1318:                     resizeH, resizeW = 512, 512
+    1319: 
+    1320:                     img = [np.array(Image.open(imgPath).convert(""RGB""))]
+>>> 1321:                     img = tf.convert_to_tensor(img, dtype=tf.uint8)
+    1322: 
+    1323:                 return img, oriH, oriW, resizeH, resizeW
+    1324: ",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+ML-TANGO/TANGO,https://github.com/ML-TANGO/TANGO,labelling/Model/Dataset/ImageDataSet.py,1379,"    1376:                     oriH, oriW = img.shape[:2]
+    1377:                     resizeH, resizeW = 512, 512
+    1378:                     img = [img]
+>>> 1379:                     img = tf.convert_to_tensor(img, dtype=tf.uint8)
+    1380: 
+    1381:                 return img, oriH, oriW, resizeH, resizeW
+    1382: ",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+sek788432/Waymo-2D-Object-Detection,https://github.com/sek788432/Waymo-2D-Object-Detection,code/detect.py,66,"    63:     #     np.mean(image_np, 2, keepdims=True), (1, 1, 3)).astype(np.uint8)
+    64: 
+    65:     # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
+>>> 66:     input_tensor = tf.convert_to_tensor(image_np)
+    67:     # The model expects a batch of images, so add an axis with `tf.newaxis`.
+    68:     input_tensor = input_tensor[tf.newaxis, ...]
+    69:     detections = detect_fn(input_tensor)",tf.convert_to_tensor(image_np) where 'image_np' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Ali2500/TarViS,https://github.com/Ali2500/TarViS,eval/kitti_step/main.py,67,"    64:             gt_mask = rgb_to_eval_format(gt_mask)
+    65: 
+    66:             # convert to TF tensors
+>>> 67:             pred_mask = tf.convert_to_tensor(pred_mask, tf.int64)
+    68:             gt_mask = tf.convert_to_tensor(gt_mask, tf.int64)
+    69: 
+    70:             stq_metric.update_state(gt_mask, pred_mask, sequence_id=seq_id)",tf.convert_to_tensor(pred_mask) where 'pred_mask' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+Ali2500/TarViS,https://github.com/Ali2500/TarViS,eval/kitti_step/main.py,68,"    65: 
+    66:             # convert to TF tensors
+    67:             pred_mask = tf.convert_to_tensor(pred_mask, tf.int64)
+>>> 68:             gt_mask = tf.convert_to_tensor(gt_mask, tf.int64)
+    69: 
+    70:             stq_metric.update_state(gt_mask, pred_mask, sequence_id=seq_id)
+    71: ",tf.convert_to_tensor(gt_mask) where 'gt_mask' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+daigo0927/blog,https://github.com/daigo0927/blog,tf-object-detection/train.py,133,"    130:     xmins, ymins, xmaxs, ymaxs = np.split(boxes, 4, axis=-1)
+    131:     boxes = np.concatenate([ymins/h, xmins/w, ymaxs/h, xmaxs/w], axis=-1)
+    132:     
+>>> 133:     image = tf.convert_to_tensor(image, dtype=tf.float32)
+    134:     boxes = tf.convert_to_tensor(boxes, dtype=tf.float32)
+    135:     labels = tf.convert_to_tensor(labels, dtype=tf.int32) - label_id_offset
+    136:     labels = tf.one_hot(labels, num_classes)",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+daigo0927/blog,https://github.com/daigo0927/blog,tf-object-detection/train.py,386,"    383:     for i in range(num_visualize):
+    384:         image_path = loader.image_paths[i]
+    385:         image = cv2.imread(image_path)[:, :, ::-1]
+>>> 386:         image = tf.convert_to_tensor(image, dtype=tf.float32)
+    387:         preprocessed_image, shape = model.preprocess(image[None])
+    388:         prediction_dict = model.predict(preprocessed_image, shape)
+    389:         detection = model.postprocess(prediction_dict, shape)",tf.convert_to_tensor(image) where 'image' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+mjq11302010044/Real-CE,https://github.com/mjq11302010044/Real-CE,basicsr/data/degradation_v2.py,207,"    204: 
+    205: 
+    206: def get_camera(img, degrade_dict):
+>>> 207:     img = tf.convert_to_tensor(img, dtype=tf.float32) / 255.
+    208:     deg_img, features = unprocess(img)
+    209: 
+    210:     shot_noise, read_noise = random_noise_levels()",tf.convert_to_tensor(img) where 'img' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+TillBeemelmanns/tfops-aug,https://github.com/TillBeemelmanns/tfops-aug,utils/benchmark_pipeline.py,77,"    74:             subpolicy = {}
+    75:             subpolicy['op0'] = [op, 1, 5]
+    76:             augmentation_policy['sub_policy0'] = subpolicy
+>>> 77:             img = tf.convert_to_tensor(img_org)
+    78:             img = apply_augmentation_policy(img, augmentation_policy)
+    79:             _ = img.numpy()
+    80: ",tf.convert_to_tensor(img_org) where 'img_org' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+nnUyi/ReHEN,https://github.com/nnUyi/ReHEN,codes/metrics.py,145,"    142:             img1 = np.array(img1_list)
+    143:             img2 = np.array(img2_list)
+    144:             
+>>> 145:             img1_tensor = tf.convert_to_tensor(img1, dtype='float32', name='img1_tensor')
+    146:             img2_tensor = tf.convert_to_tensor(img2, dtype='float32', name='img2_tensor')
+    147: 
+    148:             psnr = PSNR(max_val=1.0)",tf.convert_to_tensor(img1) where 'img1' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
+nnUyi/ReHEN,https://github.com/nnUyi/ReHEN,codes/metrics.py,146,"    143:             img2 = np.array(img2_list)
+    144:             
+    145:             img1_tensor = tf.convert_to_tensor(img1, dtype='float32', name='img1_tensor')
+>>> 146:             img2_tensor = tf.convert_to_tensor(img2, dtype='float32', name='img2_tensor')
+    147: 
+    148:             psnr = PSNR(max_val=1.0)
+    149:             psnr_list = sess.run(psnr.compute_psnr(img1_tensor,img2_tensor))",tf.convert_to_tensor(img2) where 'img2' holds file-loaded data. Data becomes permanent graph constant. Use tf.data.Dataset or tf.placeholder.
